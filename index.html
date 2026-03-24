@@ -756,6 +756,17 @@
             </div>
           </div>
         </div>
+
+        <!-- 今日每小时天气详情 -->
+        <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(125,211,252,0.08);">
+          <div class="forecast-header">今日每小时天气</div>
+          <div class="forecast-list" id="today-hourly">
+            <div class="loading">
+              <div class="spinner"></div>
+              <span>加载中...</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id="tab-hourly" class="tab-panel">
@@ -976,6 +987,27 @@
 
         document.getElementById('sunrise').textContent = astro.sunrise;
         document.getElementById('sunset').textContent = astro.sunset;
+
+        // 今日每小时天气详情
+        let todayHourlyHtml = '';
+        hourlyData.forEach((h, i) => {
+          const hour = parseInt(h.time) / 100;
+          const rainChance = parseInt(h.chanceofrain || 0);
+          const timeLabel = String(hour).padStart(2, '0') + ':00';
+          
+          todayHourlyHtml += `
+            <div class="forecast-row">
+              <div class="day">${timeLabel}</div>
+              <div class="icon">${getSmallIcon(h.weatherCode)}</div>
+              <div class="desc">${h.weatherDesc[0].value}</div>
+              <div class="hi">${h.tempC}°</div>
+              <div class="lo" style="color: var(--accent-cyan);">${h.FeelsLikeC}°</div>
+              <div class="rain-chance" style="margin-left: auto;">
+                💧${rainChance}% 💨${h.windspeedKmph}km/h
+              </div>
+            </div>`;
+        });
+        document.getElementById('today-hourly').innerHTML = todayHourlyHtml;
 
         // Hourly forecast (24 hours)
         let hourlyHtml = '';
