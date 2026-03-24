@@ -519,6 +519,70 @@
       margin-left: 12px;
     }
 
+    /* Calendar Grid */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(125,211,252,0.1);
+      border-radius: 12px;
+      font-size: 0.7rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .calendar-day:hover {
+      background: rgba(125,211,252,0.08);
+      border-color: rgba(125,211,252,0.2);
+    }
+
+    .calendar-day.today {
+      background: rgba(125,211,252,0.15);
+      border-color: var(--accent-cyan);
+    }
+
+    .calendar-day .day-num {
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+
+    .calendar-day .day-icon {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 2px;
+    }
+
+    .calendar-day .day-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .calendar-day .day-temp {
+      font-size: 0.65rem;
+      color: var(--accent-amber);
+      font-weight: 500;
+    }
+
+    .calendar-day .day-rain {
+      font-size: 0.6rem;
+      color: var(--accent-cyan);
+      margin-top: 2px;
+    }
+
     /* Monthly */
     .monthly-overview {
       margin-bottom: 24px;
@@ -630,7 +694,6 @@
 
     <div class="tabs">
       <button class="tab-btn active" data-tab="today">今日</button>
-      <button class="tab-btn" data-tab="hourly">24小时</button>
       <button class="tab-btn" data-tab="week">一周</button>
       <button class="tab-btn" data-tab="month">月报</button>
     </div>
@@ -769,20 +832,8 @@
         </div>
       </div>
 
-      <div id="tab-hourly" class="tab-panel">
-        <div class="forecast-header">24小时天气预报</div>
-        <div class="hourly-container">
-          <div class="hourly-scroll" id="hourly-forecast">
-            <div class="loading">
-              <div class="spinner"></div>
-              <span>加载中...</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div id="tab-week" class="tab-panel">
-        <div class="forecast-header">未来三天预报</div>
+        <div class="forecast-header">未来7天预报</div>
         <div class="forecast-list" id="week-forecast">
           <div class="loading">
             <div class="spinner"></div>
@@ -792,41 +843,8 @@
       </div>
 
       <div id="tab-month" class="tab-panel">
-        <div class="forecast-header">本月天气总览</div>
-        <div class="monthly-overview">
-          <div class="monthly-stat" id="month-stats">
-            <div class="stat-card highlight">
-              <div class="val" id="month-hi">--°</div>
-              <div class="label">本月最高</div>
-            </div>
-            <div class="stat-card low">
-              <div class="val" id="month-lo">--°</div>
-              <div class="label">本月最低</div>
-            </div>
-            <div class="stat-card">
-              <div class="val" id="month-rain">--</div>
-              <div class="label">降雨天数</div>
-            </div>
-            <div class="stat-card">
-              <div class="val" id="month-sunny">--</div>
-              <div class="label">晴天数</div>
-            </div>
-          </div>
-          <div class="monthly-temp-bar">
-            <div class="temp-bar-labels">
-              <span>寒冷</span>
-              <span>凉爽</span>
-              <span>温暖</span>
-              <span>炎热</span>
-            </div>
-            <div class="temp-bar-track"></div>
-            <div class="temp-bar-marker">
-              <span>当前温度：</span>
-              <span class="pos" id="month-current-temp">--°C</span>
-            </div>
-          </div>
-        </div>
-        <div class="forecast-list" id="month-forecast">
+        <div class="forecast-header">30天月历天气</div>
+        <div id="month-calendar" style="padding: 0 -8px;">
           <div class="loading">
             <div class="spinner"></div>
             <span>加载中...</span>
@@ -1009,31 +1027,10 @@
         });
         document.getElementById('today-hourly').innerHTML = todayHourlyHtml;
 
-        // Hourly forecast (24 hours)
-        let hourlyHtml = '';
-        const currentHour = now.getHours();
-        
-        hourlyData.forEach((h, i) => {
-          const hour = parseInt(h.time) / 100;
-          const isNow = hour === currentHour;
-          const rainChance = parseInt(h.chanceofrain || 0);
-          
-          hourlyHtml += `
-            <div class="hourly-item ${isNow ? 'now' : ''}">
-              <div class="hourly-time">${getHourLabel(h.time)}</div>
-              <div class="hourly-icon">${getSmallIcon(h.weatherCode)}</div>
-              <div class="hourly-temp">${h.tempC}°</div>
-              ${rainChance > 10 ? `<div class="hourly-rain">🌧${rainChance}%</div>` : '<div class="hourly-rain" style="opacity:0">--</div>'}
-              <div class="hourly-wind">${h.windspeedKmph}km/h</div>
-            </div>`;
-        });
-        document.getElementById('hourly-forecast').innerHTML = hourlyHtml;
-
-        // Weekly forecast
-        const weekDays = w.weather.slice(0, 4);
+        // 一周预报（7天）
+        const allDays = w.weather;
         let weekHtml = '';
-        weekDays.forEach((day, i) => {
-          const a = day.astronomy[0];
+        allDays.slice(0, 7).forEach((day, i) => {
           const rainChance = day.hourly.reduce((max, h) => Math.max(max, parseInt(h.chanceofrain || 0)), 0);
           const midday = day.hourly.find(h => parseInt(h.time) === 1200) || day.hourly[4];
           weekHtml += `
@@ -1048,33 +1045,40 @@
         });
         document.getElementById('week-forecast').innerHTML = weekHtml;
 
-        // Monthly stats
-        const allDays = w.weather;
-        const maxTemp = Math.max(...allDays.map(d => parseInt(d.maxtempC)));
-        const minTemp = Math.min(...allDays.map(d => parseInt(d.mintempC)));
-        document.getElementById('month-hi').textContent = maxTemp + '°';
-        document.getElementById('month-lo').textContent = minTemp + '°';
-        document.getElementById('month-current-temp').textContent = cur.temp_C + '°C';
-
-        const rainDays = allDays.filter(d => parseInt(d.hourly[4]?.chanceofrain || 0) > 30).length;
-        document.getElementById('month-rain').textContent = rainDays + '天';
-        document.getElementById('month-sunny').textContent = Math.max(0, allDays.length - rainDays) + '天';
-
-        let monthHtml = '';
-        allDays.forEach((day, i) => {
-          const rainChance = day.hourly.reduce((max, h) => Math.max(max, parseInt(h.chanceofrain || 0)), 0);
-          const midday = day.hourly.find(h => parseInt(h.time) === 1200) || day.hourly[4];
-          monthHtml += `
-            <div class="forecast-row">
-              <div class="day">${formatDay(day.date)}<div class="sub">${formatDate(day.date)}</div></div>
-              <div class="icon">${getSmallIcon(midday ? midday.weatherCode : '116')}</div>
-              <div class="desc">${midday ? midday.weatherDesc[0].value : ''}</div>
-              <div class="hi">${day.maxtempC}°</div>
-              <div class="lo">${day.mintempC}°</div>
-              ${rainChance > 10 ? `<div class="rain-chance">🌧${rainChance}%</div>` : ''}
-            </div>`;
-        });
-        document.getElementById('month-forecast').innerHTML = monthHtml;
+        // 30天月历
+        let calendarHtml = '<div class="calendar-grid">';
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        for (let i = 0; i < 30; i++) {
+          const date = new Date(today);
+          date.setDate(date.getDate() + i);
+          const dateStr = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+          
+          const dayData = allDays.find(d => d.date === dateStr);
+          const isToday = i === 0;
+          
+          if (dayData) {
+            const midday = dayData.hourly.find(h => parseInt(h.time) === 1200) || dayData.hourly[4];
+            const rainChance = dayData.hourly.reduce((max, h) => Math.max(max, parseInt(h.chanceofrain || 0)), 0);
+            
+            calendarHtml += `
+              <div class="calendar-day ${isToday ? 'today' : ''}">
+                <div class="day-num">${date.getDate()}</div>
+                <div class="day-icon">${getSmallIcon(midday ? midday.weatherCode : '116')}</div>
+                <div class="day-temp">${dayData.maxtempC}°</div>
+                ${rainChance > 10 ? `<div class="day-rain">🌧${rainChance}%</div>` : ''}
+              </div>`;
+          } else {
+            calendarHtml += `
+              <div class="calendar-day ${isToday ? 'today' : ''}">
+                <div class="day-num">${date.getDate()}</div>
+                <div style="color: var(--text-muted); font-size: 0.6rem;">暂无</div>
+              </div>`;
+          }
+        }
+        calendarHtml += '</div>';
+        document.getElementById('month-calendar').innerHTML = calendarHtml;
 
         document.getElementById('footer').textContent =
           '天气 wttr.in · 空气质量 waqi.info · ' + now.toLocaleString('zh-CN');
