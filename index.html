@@ -34,7 +34,6 @@
       overflow-x: hidden;
     }
 
-    /* Background */
     .bg-gradient {
       position: fixed;
       inset: 0;
@@ -68,7 +67,6 @@
       100% { transform: translateY(100vh) rotate(12deg); opacity: 0; }
     }
 
-    /* Main */
     .main {
       position: relative;
       z-index: 2;
@@ -79,7 +77,6 @@
       align-items: center;
     }
 
-    /* Header */
     .header {
       text-align: center;
       margin-bottom: 28px;
@@ -110,7 +107,6 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Tabs */
     .tabs {
       display: flex;
       gap: 4px;
@@ -123,7 +119,7 @@
     }
 
     .tab-btn {
-      padding: 8px 22px;
+      padding: 8px 18px;
       border: none;
       border-radius: 10px;
       background: transparent;
@@ -145,7 +141,6 @@
       color: var(--accent-cyan);
     }
 
-    /* Card */
     .card {
       width: 100%;
       max-width: 500px;
@@ -172,11 +167,9 @@
       pointer-events: none;
     }
 
-    /* Tab panels */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* Loading */
     .loading {
       display: flex;
       flex-direction: column;
@@ -198,7 +191,6 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Today hero */
     .today-hero {
       text-align: center;
       margin-bottom: 32px;
@@ -252,7 +244,6 @@
 
     .feels-like span { color: #94a3b8; }
 
-    /* AQI Section */
     .aqi-section {
       background: rgba(0,0,0,0.2);
       border-radius: 18px;
@@ -330,7 +321,6 @@
       letter-spacing: 0.08em;
     }
 
-    /* Details grid */
     .details-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -361,7 +351,6 @@
       letter-spacing: 0.1em;
     }
 
-    /* Sun times */
     .sun-times {
       display: flex;
       justify-content: space-around;
@@ -380,7 +369,96 @@
     .sun-item .time-val { font-size: 0.95rem; font-weight: 500; }
     .sun-item .time-label { font-size: 0.68rem; color: var(--text-secondary); }
 
-    /* Weekly forecast */
+    /* Hourly Forecast */
+    .hourly-container {
+      margin: 0 -8px;
+      padding-bottom: 10px;
+    }
+
+    .hourly-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 4px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .hourly-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .hourly-scroll::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 2px;
+    }
+
+    .hourly-scroll::-webkit-scrollbar-thumb {
+      background: rgba(125,211,252,0.3);
+      border-radius: 2px;
+    }
+
+    .hourly-item {
+      flex: 0 0 auto;
+      width: 70px;
+      text-align: center;
+      padding: 14px 8px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 14px;
+      scroll-snap-align: start;
+      transition: background 0.2s;
+    }
+
+    .hourly-item:hover {
+      background: rgba(125,211,252,0.08);
+    }
+
+    .hourly-item.now {
+      background: rgba(125,211,252,0.12);
+      border: 1px solid rgba(125,211,252,0.2);
+    }
+
+    .hourly-time {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .hourly-item.now .hourly-time {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .hourly-icon {
+      width: 32px;
+      height: 32px;
+      margin: 0 auto 8px;
+    }
+
+    .hourly-icon svg { width: 100%; height: 100%; }
+
+    .hourly-temp {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .hourly-rain {
+      font-size: 0.68rem;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+
+    .hourly-wind {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Weekly & Monthly Forecast */
     .forecast-header {
       font-size: 0.78rem;
       color: var(--text-secondary);
@@ -441,7 +519,7 @@
       margin-left: 12px;
     }
 
-    /* Monthly overview */
+    /* Monthly */
     .monthly-overview {
       margin-bottom: 24px;
       padding: 20px;
@@ -515,26 +593,12 @@
       color: var(--accent-amber);
     }
 
-    /* Error */
     .error-state {
       text-align: center;
       padding: 40px;
       color: var(--accent-red);
     }
 
-    .retry-btn {
-      margin-top: 16px;
-      padding: 10px 24px;
-      background: rgba(248,113,113,0.1);
-      border: 1px solid rgba(248,113,113,0.2);
-      border-radius: 10px;
-      color: var(--accent-red);
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 0.88rem;
-    }
-
-    /* Footer */
     .footer {
       margin-top: 24px;
       text-align: center;
@@ -543,14 +607,14 @@
       animation: fadeUp 0.7s ease 0.3s backwards;
     }
 
-    /* Mobile */
     @media (max-width: 480px) {
       .card { padding: 28px 20px; border-radius: 22px; }
       .temp-display { font-size: 4rem; }
       .tabs { gap: 2px; padding: 3px; }
-      .tab-btn { padding: 7px 16px; font-size: 0.82rem; }
+      .tab-btn { padding: 7px 14px; font-size: 0.82rem; }
       .aqi-pollutants { grid-template-columns: repeat(3, 1fr); gap: 8px; }
       .details-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+      .hourly-item { width: 64px; padding: 12px 6px; }
     }
   </style>
 </head>
@@ -566,6 +630,7 @@
 
     <div class="tabs">
       <button class="tab-btn active" data-tab="today">今日</button>
+      <button class="tab-btn" data-tab="hourly">24小时</button>
       <button class="tab-btn" data-tab="week">一周</button>
       <button class="tab-btn" data-tab="month">月报</button>
     </div>
@@ -580,7 +645,6 @@
           <div class="feels-like">体感 <span id="today-feels">--°C</span></div>
         </div>
 
-        <!-- AQI -->
         <div class="aqi-section">
           <div class="aqi-header">
             <div class="aqi-title">
@@ -694,6 +758,18 @@
         </div>
       </div>
 
+      <div id="tab-hourly" class="tab-panel">
+        <div class="forecast-header">24小时天气预报</div>
+        <div class="hourly-container">
+          <div class="hourly-scroll" id="hourly-forecast">
+            <div class="loading">
+              <div class="spinner"></div>
+              <span>加载中...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div id="tab-week" class="tab-panel">
         <div class="forecast-header">未来三天预报</div>
         <div class="forecast-list" id="week-forecast">
@@ -754,35 +830,30 @@
   </div>
 
   <script>
-    // Weather icons
     const ICONS = {
       '113': `<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="22" fill="#fbbf24"/><path d="M50 20v8M50 72v8M20 50h8M72 50h8M28 28l6 6M66 66l6 6M28 72l6-6M66 34l6-6" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/></svg>`,
       '116': `<svg viewBox="0 0 100 100" fill="none"><circle cx="40" cy="35" r="14" fill="#fcd34d" opacity="0.9"/><path d="M65 55c0-11-9-20-20-20-1.5 0-3 .2-4.5.5C37 22.5 27.5 17 16 17c-14.4 0-26 11.6-26 26 0 1.2.1 2.4.2 3.6C-4.8 47.5 0 53 6 55h59z" fill="#94a3b8"/></svg>`,
       '296': `<svg viewBox="0 0 100 100" fill="none"><path d="M75 55c0-11-9-20-20-20-1.5 0-3 .2-4.5.5C47 22.5 37.5 17 26 17c-14.4 0-26 11.6-26 26 0 1.2.1 2.4.2 3.6C5.2 47.5 10 53 16 55h59z" fill="#64748b" opacity="0.9"/><path d="M25 62l-3 15M35 62l-2.5 12M45 62l-3 15M55 62l-2.5 12M65 62l-3 15" stroke="#7dd3fc" stroke-width="2.5" stroke-linecap="round" opacity="0.7"><animate attributeName="opacity" values="0.7;0.3;0.7" dur="1.5s" repeatCount="indefinite"/></path></svg>`,
       '266': `<svg viewBox="0 0 100 100" fill="none"><path d="M75 55c0-11-9-20-20-20-1.5 0-3 .2-4.5.5C47 22.5 37.5 17 26 17c-14.4 0-26 11.6-26 26 0 1.2.1 2.4.2 3.6C5.2 47.5 10 53 16 55h59z" fill="#64748b" opacity="0.9"/><path d="M30 62v12M40 62v8M50 62v12M60 62v8" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round" opacity="0.5"><animate attributeName="opacity" values="0.5;0.2;0.5" dur="2s" repeatCount="indefinite"/></path></svg>`,
-      '119': `<svg viewBox="0 0 100 100" fill="none"><path d="M20 70a30 30 0 1 0 60 0 25 25 0 1 0-50 0 20 20 0 1 0 40 0 15 15 0 1 0 30 0" fill="#94a3b8" opacity="0.4"/><path d="M75 55c0-11-9-20-20-20-1.5 0-3 .2-4.5.5C47 22.5 37.5 17 26 17c-14.4 0-26 11.6-26 26 0 1.2.1 2.4.2 3.6C5.2 47.5 10 53 16 55h59z" fill="#64748b"/></svg>`,
+      '119': `<svg viewBox="0 0 100 100" fill="none"><path d="M20 70a30 30 0 1 0 60 0 25 25 0 1 0-50 0 20 20 0 1 0 40 0fill="#94a3b8" opacity="0.4"/><path d="M75 55c0-11-9-20-20-20-1.5 0-3 .2-4.5.5C47 22.5 37.5 17 26 17c-14.4 0-26 11.6-26 26 0 1.2.1 2.4.2 3.6C5.2 47.5 10 53 16 55h59z" fill="#64748b"/></svg>`,
       '122': `<svg viewBox="0 0 100 100" fill="none"><path d="M75 55c0-11-9-20-20-20-1.5 0-3 .2-4.5.5C47 22.5 37.5 17 26 17c-14.4 0-26 11.6-26 26 0 1.2.1 2.4.2 3.6C5.2 47.5 10 53 16 55h59z" fill="#475569"/></svg>`,
+      '176': `<svg viewBox="0 0 100 100" fill="none"><path d="M75 55c0-11-9-20-20-20-1.5 0-3 .2-4.5.5C47 22.5 37.5 17 26 17c-14.4 0-26 11.6-26 26 0 1.2.1 2.4.2 3.6C5.2 47.5 10 53 16 55h59z" fill="#64748b" opacity="0.85"/><path d="M25 65l-2 10M35 65l-1.5 8M45 65l-2 10M55 65l-1.5 8M65 65l-2 10" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round" opacity="0.6"><animate attributeName="opacity" values="0.6;0.25;0.6" dur="1.8s" repeatCount="indefinite"/></path></svg>`,
     };
 
     const SMALL_ICONS = {
       '113': `<svg viewBox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="10" fill="#fbbf24"/><path d="M25 10v4M25 36v4M10 25h4M36 25h4M14 14l3 3M33 33l3 3M14 36l3-3M33 17l3-3" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/></svg>`,
-      '116': `<svg viewBox="0 0 50 50" fill="none"><circle cx="18" cy="16" r="6" fill="#fcd34d"/>          <path d="M36 30c0-6-5-11-11-11-1 0-2 .1-2.5.3C20 13.5 13 11 7 11c-8 0-14 6.5-14 14 0 .7.1 1.3.1 2C-3 27.5 0 31 3 33h33z" fill="#94a3b8"/></svg>`,
+      '116': `<svg viewBox="0 0 50 50" fill="none"><circle cx="18" cy="16" r="6" fill="#fcd34d"/><path d="M36 30c0-6-5-11-11-11-1 0-2 .1-2.5.3C20 13.5 13 11 7 11c-8 0-14 6.5-14 14 0 .7.1 1.3.1 2C-3 27.5 0 31 3 33h33z" fill="#94a3b8"/></svg>`,
       '296': `<svg viewBox="0 0 50 50" fill="none"><path d="M36 30c0-6-5-11-11-11-1 0-2 .1-2.5.3C20 13.5 13 11 7 11c-8 0-14 6.5-14 14 0 .7.1 1.3.1 2C-3 27.5 0 31 3 33h33z" fill="#64748b" opacity="0.9"/><path d="M12 37l-1.5 8M18 37l-1 6M24 37l-1.5 8M30 37l-1 6M36 37l-1.5 8" stroke="#7dd3fc" stroke-width="1.5" stroke-linecap="round" opacity="0.7"><animate attributeName="opacity" values="0.7;0.3;0.7" dur="1.5s" repeatCount="indefinite"/></path></svg>`,
       '266': `<svg viewBox="0 0 50 50" fill="none"><path d="M36 30c0-6-5-11-11-11-1 0-2 .1-2.5.3C20 13.5 13 11 7 11c-8 0-14 6.5-14 14 0 .7.1 1.3.1 2C-3 27.5 0 31 3 33h33z" fill="#64748b" opacity="0.9"/><path d="M14 37v7M20 37v5M26 37v7M32 37v5" stroke="#7dd3fc" stroke-width="1.2" stroke-linecap="round" opacity="0.5"><animate attributeName="opacity" values="0.5;0.2;0.5" dur="2s" repeatCount="indefinite"/></path></svg>`,
       '119': `<svg viewBox="0 0 50 50" fill="none"><path d="M10 40a15 15 0 1 0 30 0 12 12 0 1 0-25 0 9 9 0 1 0 20 0 6 6 0 1 0 15 0" fill="#94a3b8" opacity="0.4"/></svg>`,
       '122': `<svg viewBox="0 0 50 50" fill="none"><path d="M36 30c0-6-5-11-11-11-1 0-2 .1-2.5.3C20 13.5 13 11 7 11c-8 0-14 6.5-14 14 0 .7.1 1.3.1 2C-3 27.5 0 31 3 33h33z" fill="#475569"/></svg>`,
+      '176': `<svg viewBox="0 0 50 50" fill="none"><path d="M36 30c0-6-5-11-11-11-1 0-2 .1-2.5.3C20 13.5 13 11 7 11c-8 0-14 6.5-14 14 0 .7.1 1.3.1 2C-3 27.5 0 31 3 33h33z" fill="#64748b" opacity="0.85"/><path d="M12 35l-1 6M18 35l-0.8 4M24 35l-1 6M30 35l-0.8 4M36 35l-1 6" stroke="#7dd3fc" stroke-width="1.3" stroke-linecap="round" opacity="0.6"><animate attributeName="opacity" values="0.6;0.25;0.6" dur="1.8s" repeatCount="indefinite"/></path></svg>`,
     };
 
     const WEEKDAY = ['周日','周一','周二','周三','周四','周五','周六'];
-    const MONTHS = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
 
-    function getIcon(code) {
-      return ICONS[code] || ICONS['116'];
-    }
-
-    function getSmallIcon(code) {
-      return SMALL_ICONS[code] || SMALL_ICONS['116'];
-    }
+    function getIcon(code) { return ICONS[code] || ICONS['116']; }
+    function getSmallIcon(code) { return SMALL_ICONS[code] || SMALL_ICONS['116']; }
 
     function formatDate(dateStr) {
       const d = new Date(dateStr + 'T12:00:00');
@@ -805,6 +876,24 @@
       if (aqi <= 100) return { label: '良', cls: 'good' };
       if (aqi <= 150) return { label: '轻度', cls: 'moderate' };
       return { label: '中度', cls: 'poor' };
+    }
+
+    function formatHour(timeStr) {
+      const hour = parseInt(timeStr) / 100;
+      if (hour === 0) return '凌晨';
+      if (hour === 12) return '中午';
+      if (hour < 6) return '凌晨';
+      if (hour < 12) return '上午';
+      if (hour < 18) return '下午';
+      return '晚上';
+    }
+
+    function getHourLabel(timeStr) {
+      const hour = parseInt(timeStr) / 100;
+      const now = new Date();
+      const currentHour = now.getHours();
+      if (hour === currentHour) return '现在';
+      return String(hour).padStart(2, '0') + ':00';
     }
 
     function createRain() {
@@ -832,7 +921,6 @@
       requestAnimationFrame(upd);
     }
 
-    // Tab switching
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -842,7 +930,6 @@
       });
     });
 
-    // Fetch weather
     async function fetchWeather() {
       try {
         const [wRes, aqiRes] = await Promise.all([
@@ -855,8 +942,8 @@
         const cur = w.current_condition[0];
         const astro = w.weather[0].astronomy[0];
         const todayWeather = w.weather[0];
+        const hourlyData = w.weather[0].hourly;
 
-        // Today
         const now = new Date();
         document.getElementById('today-date').textContent =
           now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 ' + WEEKDAY[now.getDay()];
@@ -866,14 +953,12 @@
         document.getElementById('today-desc').textContent = cur.weatherDesc[0].value;
         document.getElementById('today-feels').textContent = cur.FeelsLikeC + '°C';
 
-        // AQI
         const aqi = aqiData.data ? aqiData.data.aqi : null;
         if (aqi !== null) {
           const level = getAqiLevel(aqi);
           document.getElementById('aqi-value').textContent = aqi;
           document.getElementById('aqi-level').textContent = level.label;
           document.getElementById('aqi-badge').className = 'aqi-badge ' + level.cls;
-
           const iaqi = aqiData.data.iaqi || {};
           document.getElementById('pm25-val').textContent = iaqi.pm25 ? Math.round(iaqi.pm25.v) : '--';
           document.getElementById('pm10-val').textContent = iaqi.pm10 ? Math.round(iaqi.pm10.v) : '--';
@@ -882,7 +967,6 @@
           document.getElementById('aqi-badge').innerHTML = '<span class="aqi-dot"></span><span>暂无数据</span>';
         }
 
-        // Details
         document.getElementById('detail-humidity').textContent = cur.humidity + '%';
         document.getElementById('detail-wind').textContent = cur.windspeedKmph + ' km/h';
         document.getElementById('detail-vis').textContent = cur.visibility + ' km';
@@ -890,23 +974,41 @@
         document.getElementById('detail-uv').textContent = cur.uvIndex;
         document.getElementById('detail-cloud').textContent = cur.cloudcover + '%';
 
-        // Sun
         document.getElementById('sunrise').textContent = astro.sunrise;
         document.getElementById('sunset').textContent = astro.sunset;
 
-        // Weekly forecast (next 3 days)
+        // Hourly forecast (24 hours)
+        let hourlyHtml = '';
+        const currentHour = now.getHours();
+        
+        hourlyData.forEach((h, i) => {
+          const hour = parseInt(h.time) / 100;
+          const isNow = hour === currentHour;
+          const rainChance = parseInt(h.chanceofrain || 0);
+          
+          hourlyHtml += `
+            <div class="hourly-item ${isNow ? 'now' : ''}">
+              <div class="hourly-time">${getHourLabel(h.time)}</div>
+              <div class="hourly-icon">${getSmallIcon(h.weatherCode)}</div>
+              <div class="hourly-temp">${h.tempC}°</div>
+              ${rainChance > 10 ? `<div class="hourly-rain">🌧${rainChance}%</div>` : '<div class="hourly-rain" style="opacity:0">--</div>'}
+              <div class="hourly-wind">${h.windspeedKmph}km/h</div>
+            </div>`;
+        });
+        document.getElementById('hourly-forecast').innerHTML = hourlyHtml;
+
+        // Weekly forecast
         const weekDays = w.weather.slice(0, 4);
         let weekHtml = '';
         weekDays.forEach((day, i) => {
           const a = day.astronomy[0];
-          const high = Math.round((parseInt(day.maxtempC) + parseInt(day.mintempC)) / 2 + 3);
-          const low  = Math.round((parseInt(day.maxtempC) + parseInt(day.mintempC)) / 2 - 3);
           const rainChance = day.hourly.reduce((max, h) => Math.max(max, parseInt(h.chanceofrain || 0)), 0);
+          const midday = day.hourly.find(h => parseInt(h.time) === 1200) || day.hourly[4];
           weekHtml += `
             <div class="forecast-row">
               <div class="day">${formatDay(day.date)}<div class="sub">${formatDate(day.date)}</div></div>
-              <div class="icon">${getSmallIcon(day.hourly[4] ? day.hourly[4].weatherCode : '116')}</div>
-              <div class="desc">${day.hourly[4] ? day.hourly[4].weatherDesc[0].value : ''}</div>
+              <div class="icon">${getSmallIcon(midday ? midday.weatherCode : '116')}</div>
+              <div class="desc">${midday ? midday.weatherDesc[0].value : ''}</div>
               <div class="hi">${day.maxtempC}°</div>
               <div class="lo">${day.mintempC}°</div>
               ${rainChance > 10 ? `<div class="rain-chance">🌧${rainChance}%</div>` : ''}
@@ -914,7 +1016,7 @@
         });
         document.getElementById('week-forecast').innerHTML = weekHtml;
 
-        // Monthly stats (approximate from weekly data)
+        // Monthly stats
         const allDays = w.weather;
         const maxTemp = Math.max(...allDays.map(d => parseInt(d.maxtempC)));
         const minTemp = Math.min(...allDays.map(d => parseInt(d.mintempC)));
@@ -926,16 +1028,15 @@
         document.getElementById('month-rain').textContent = rainDays + '天';
         document.getElementById('month-sunny').textContent = Math.max(0, allDays.length - rainDays) + '天';
 
-        // Month forecast rows
         let monthHtml = '';
         allDays.forEach((day, i) => {
           const rainChance = day.hourly.reduce((max, h) => Math.max(max, parseInt(h.chanceofrain || 0)), 0);
-          const desc = day.hourly[4] ? day.hourly[4].weatherDesc[0].value : '';
+          const midday = day.hourly.find(h => parseInt(h.time) === 1200) || day.hourly[4];
           monthHtml += `
             <div class="forecast-row">
               <div class="day">${formatDay(day.date)}<div class="sub">${formatDate(day.date)}</div></div>
-              <div class="icon">${getSmallIcon(day.hourly[4] ? day.hourly[4].weatherCode : '116')}</div>
-              <div class="desc">${desc}</div>
+              <div class="icon">${getSmallIcon(midday ? midday.weatherCode : '116')}</div>
+              <div class="desc">${midday ? midday.weatherDesc[0].value : ''}</div>
               <div class="hi">${day.maxtempC}°</div>
               <div class="lo">${day.mintempC}°</div>
               ${rainChance > 10 ? `<div class="rain-chance">🌧${rainChance}%</div>` : ''}
@@ -943,14 +1044,14 @@
         });
         document.getElementById('month-forecast').innerHTML = monthHtml;
 
-        // Footer
         document.getElementById('footer').textContent =
           '天气 wttr.in · 空气质量 waqi.info · ' + now.toLocaleString('zh-CN');
 
       } catch (err) {
         console.error(err);
-        ['week-forecast','month-forecast'].forEach(id => {
-          document.getElementById(id).innerHTML = '<div class="error-state">数据加载失败，请检查网络</div>';
+        ['hourly-forecast','week-forecast','month-forecast'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = '<div class="error-state">数据加载失败，请检查网络</div>';
         });
       }
     }
