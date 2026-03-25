@@ -17,16 +17,16 @@
       --global: #f5c518;
       --concert: #a855f7;
       --tech: #22c55e;
+      --exam: #f97316;
+      --protest: #ef4444;
+      --folk: #14b8a6;
+      --livehouse: #ec4899;
       --text-primary: #ffffff;
       --text-secondary: #8888aa;
       --border: #1e1e2e;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
@@ -46,7 +46,6 @@
       flex-direction: column;
     }
 
-    /* Header */
     .header {
       padding: 20px 0 16px;
       display: flex;
@@ -65,9 +64,7 @@
       transition: color 0.2s;
     }
 
-    .back-link:hover {
-      color: var(--accent);
-    }
+    .back-link:hover { color: var(--accent); }
 
     .header h1 {
       font-size: 18px;
@@ -76,10 +73,7 @@
       text-align: center;
     }
 
-    /* Filter Section */
-    .filter-section {
-      padding: 12px 0;
-    }
+    .filter-section { padding: 12px 0; }
 
     .filter-label {
       font-size: 12px;
@@ -98,76 +92,51 @@
       -ms-overflow-style: none;
     }
 
-    .filter-tabs::-webkit-scrollbar {
-      display: none;
-    }
+    .filter-tabs::-webkit-scrollbar { display: none; }
 
     .filter-tab {
       padding: 8px 16px;
       border-radius: 20px;
       font-size: 13px;
       white-space: nowrap;
-      cursor: pointer;
-      border: 1px solid var(--border);
       background: var(--card-bg);
       color: var(--text-secondary);
+      border: 1px solid var(--border);
+      cursor: pointer;
       transition: all 0.2s;
-      flex-shrink: 0;
     }
 
     .filter-tab.active {
       background: var(--accent);
-      color: var(--bg);
+      color: #000;
       border-color: var(--accent);
-      font-weight: 500;
     }
 
-    .filter-tab:hover:not(.active) {
-      border-color: var(--accent);
-      color: var(--text-primary);
-    }
+    .filter-tabs-location { margin-top: 8px; }
 
-    .filter-tabs-location .filter-tab {
-      font-size: 12px;
-      padding: 6px 12px;
-    }
-
-    /* Month Navigator */
     .month-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 12px 0;
-      gap: 12px;
     }
 
     .month-nav-btn {
       background: var(--card-bg);
       border: 1px solid var(--border);
       color: var(--text-primary);
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
       font-size: 18px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       transition: all 0.2s;
     }
 
-    .month-nav-btn:hover {
-      background: var(--border);
-      border-color: var(--accent);
-    }
+    .month-nav-btn:hover { background: var(--accent); color: #000; }
 
-    .month-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
+    .month-title { font-size: 18px; font-weight: 600; }
 
-    /* Calendar Grid */
     .calendar {
       background: var(--card-bg);
       border-radius: 16px;
@@ -178,15 +147,10 @@
     .calendar-header {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-      margin-bottom: 8px;
-    }
-
-    .calendar-header span {
       text-align: center;
       font-size: 12px;
       color: var(--text-secondary);
-      font-weight: 500;
+      margin-bottom: 8px;
     }
 
     .calendar-grid {
@@ -201,49 +165,39 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      border-radius: 12px;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s;
       position: relative;
-      min-height: 44px;
     }
 
-    .calendar-day:hover {
-      background: var(--border);
-    }
+    .calendar-day:hover { background: rgba(255,255,255,0.1); }
 
-    .calendar-day.other-month {
-      opacity: 0.3;
-    }
+    .calendar-day.other-month { opacity: 0.3; }
 
     .calendar-day.today {
-      border: 2px solid var(--accent);
+      background: rgba(245, 197, 24, 0.2);
+      border: 1px solid var(--accent);
     }
 
     .calendar-day.selected {
       background: var(--accent);
     }
 
-    .calendar-day.selected .day-num {
-      color: var(--bg);
-    }
+    .calendar-day.selected .day-num { color: #000; }
 
-    .day-num {
-      font-size: 14px;
-      font-weight: 500;
-    }
+    .day-num { font-size: 14px; font-weight: 500; }
 
     .day-events {
       display: flex;
       gap: 2px;
-      margin-top: 2px;
-      flex-wrap: wrap;
-      justify-content: center;
+      position: absolute;
+      bottom: 4px;
     }
 
     .event-dot {
-      width: 6px;
-      height: 6px;
+      width: 4px;
+      height: 4px;
       border-radius: 50%;
     }
 
@@ -252,8 +206,11 @@
     .event-dot.global { background: var(--global); }
     .event-dot.concert { background: var(--concert); }
     .event-dot.tech { background: var(--tech); }
+    .event-dot.exam { background: var(--exam); }
+    .event-dot.protest { background: var(--protest); }
+    .event-dot.folk { background: var(--folk); }
+    .event-dot.livehouse { background: var(--livehouse); }
 
-    /* Event List */
     .event-section {
       flex: 1;
       padding-bottom: 20px;
@@ -263,39 +220,26 @@
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 12px;
-      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .event-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .event-list { display: flex; flex-direction: column; gap: 12px; }
 
     .event-card {
       background: var(--card-bg);
       border-radius: 12px;
       padding: 16px;
-      border: 1px solid var(--border);
-      animation: slideIn 0.3s ease-out;
-      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fadeIn 0.3s ease;
     }
 
-    .event-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    .event-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
 
     .event-type {
       display: inline-flex;
@@ -305,7 +249,6 @@
       border-radius: 12px;
       font-size: 12px;
       font-weight: 500;
-      margin-bottom: 8px;
     }
 
     .event-type.sports { background: rgba(59, 130, 246, 0.2); color: var(--sports); }
@@ -313,13 +256,10 @@
     .event-type.global { background: rgba(245, 197, 24, 0.2); color: var(--global); }
     .event-type.concert { background: rgba(168, 85, 247, 0.2); color: var(--concert); }
     .event-type.tech { background: rgba(34, 197, 94, 0.2); color: var(--tech); }
-
-    .event-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
+    .event-type.exam { background: rgba(249, 115, 22, 0.2); color: var(--exam); }
+    .event-type.protest { background: rgba(239, 68, 68, 0.2); color: var(--protest); }
+    .event-type.folk { background: rgba(20, 184, 166, 0.2); color: var(--folk); }
+    .event-type.livehouse { background: rgba(236, 72, 153, 0.2); color: var(--livehouse); }
 
     .location-scope {
       display: inline-flex;
@@ -342,86 +282,45 @@
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 4px;
-    }
-
-    .event-date {
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 4px;
-    }
-
-    .event-location {
-      font-size: 13px;
-      color: var(--text-secondary);
       display: flex;
       align-items: center;
-      gap: 4px;
+      justify-content: space-between;
     }
 
-    .event-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
+    .favorite-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+      transition: transform 0.2s;
     }
 
-    .no-events {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--text-secondary);
-    }
+    .favorite-btn:hover { transform: scale(1.2); }
+    .favorite-btn.active { color: #ef4444; }
 
-    .no-events-icon {
-      font-size: 48px;
-      margin-bottom: 12px;
-    }
+    .event-date { font-size: 13px; color: var(--text-secondary); margin-bottom: 4px; }
+    .event-location { font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; }
+    .event-desc { font-size: 13px; color: var(--text-secondary); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
 
-    /* Legend */
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding: 12px 0;
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
+    .no-events { text-align: center; padding: 40px 20px; color: var(--text-secondary); }
+    .no-events-icon { font-size: 48px; margin-bottom: 12px; }
 
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+    .legend { display: flex; flex-wrap: wrap; gap: 12px; padding: 12px 0; font-size: 12px; color: var(--text-secondary); }
+    .legend-item { display: flex; align-items: center; gap: 4px; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
 
-    .legend-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-
-    /* Responsive */
     @media (max-width: 400px) {
-      .container {
-        padding: 0 12px;
-      }
-
-      .header h1 {
-        font-size: 16px;
-      }
-
-      .month-title {
-        font-size: 18px;
-      }
+      .container { padding: 0 12px; }
+      .header h1 { font-size: 16px; }
+      .month-title { font-size: 18px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Header -->
     <header class="header">
-      <a href="#" class="back-link" onclick="window.location.href='index.html'">
-        ← 返回天气
-      </a>
+      <a href="#" class="back-link" onclick="window.location.href='index.html'">← 返回天气</a>
       <h1>🌍 全球大事件日历</h1>
       <div style="width: 60px;"></div>
     </header>
@@ -432,9 +331,11 @@
       <div class="filter-tabs">
         <div class="filter-tab active" data-filter="all">全部</div>
         <div class="filter-tab" data-filter="sports">🏆 体育</div>
-        <div class="filter-tab" data-filter="festival-china">🎌 中国节日</div>
+        <div class="filter-tab" data-filter="festival-china">🎌 节日</div>
         <div class="filter-tab" data-filter="concert">🎵 演出</div>
-        <div class="filter-tab" data-filter="global">🌍 全球</div>
+        <div class="filter-tab" data-filter="exam">📝 考试</div>
+        <div class="filter-tab" data-filter="livehouse">🎸 Livehouse</div>
+        <div class="filter-tab" data-filter="folk">🎭 民间</div>
         <div class="filter-tab" data-filter="tech">💻 科技</div>
       </div>
     </div>
@@ -451,6 +352,13 @@
       </div>
     </div>
 
+    <!-- Favorites Filter -->
+    <div class="filter-section">
+      <div class="filter-tabs">
+        <div class="filter-tab" data-filter="favorites" id="favoritesTab">❤️ 我的收藏</div>
+      </div>
+    </div>
+
     <!-- Month Navigator -->
     <div class="month-nav">
       <button class="month-nav-btn" id="prevMonth">‹</button>
@@ -461,13 +369,7 @@
     <!-- Calendar -->
     <div class="calendar">
       <div class="calendar-header">
-        <span>日</span>
-        <span>一</span>
-        <span>二</span>
-        <span>三</span>
-        <span>四</span>
-        <span>五</span>
-        <span>六</span>
+        <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
       </div>
       <div class="calendar-grid" id="calendarGrid"></div>
     </div>
@@ -475,9 +377,11 @@
     <!-- Legend -->
     <div class="legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--sports)"></div>体育</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--festival-china)"></div>中国节日</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--global)"></div>全球节日</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--festival-china)"></div>节日</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--concert)"></div>演出</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--exam)"></div>考试</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--livehouse)"></div>Livehouse</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--folk)"></div>民间</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--tech)"></div>科技</div>
     </div>
 
@@ -491,14 +395,16 @@
   <script>
     // Events Data for 2026
     const events = [
-      // Sports - Global events
+      // ========== 体育 ==========
       { id: 1, date: "2026-02-17", endDate: "2026-03-09", title: "FIFA世界杯", type: "sports", locationScope: "global", location: "美国/加拿大/墨西哥", description: "第23届FIFA世界杯足球赛" },
       { id: 2, date: "2026-05-30", endDate: "2026-06-21", title: "温布尔登网球锦标赛", type: "sports", locationScope: "global", location: "伦敦", description: "网球四大满贯赛事之一" },
       { id: 3, date: "2026-07-03", endDate: "2026-07-16", title: "温布尔登网球公开赛", type: "sports", locationScope: "global", location: "伦敦", description: "草地网球大满贯" },
       { id: 4, date: "2026-08-12", endDate: "2026-08-24", title: "世界田径锦标赛", type: "sports", locationScope: "global", location: "东京", description: "世界田径顶级赛事" },
       { id: 5, date: "2026-09-25", endDate: "2026-10-11", title: "亚运会", type: "sports", locationScope: "global", location: "大阪", description: "亚洲最大综合性运动会" },
+      { id: 6, date: "2026-03-20", endDate: "2026-03-23", title: "CBA季后赛", type: "sports", locationScope: "national", location: "浙江", description: "中国男子篮球职业联赛" },
+      { id: 7, date: "2026-04-05", title: "杭州马拉松", type: "sports", locationScope: "city", location: "杭州", description: "国际马拉松赛事" },
 
-      // Chinese Festivals - National
+      // ========== 中国节日 ==========
       { id: 10, date: "2026-01-01", title: "元旦", type: "festival-china", locationScope: "national", location: "中国", description: "新年的第一天" },
       { id: 11, date: "2026-01-28", title: "春节", type: "festival-china", locationScope: "national", location: "中国", description: "中华民族传统节日，阖家团圆" },
       { id: 12, date: "2026-02-14", title: "情人节", type: "festival-china", locationScope: "national", location: "中国", description: "情侣互赠礼物表达爱意" },
@@ -513,96 +419,159 @@
       { id: 21, date: "2026-10-25", title: "重阳节", type: "festival-china", locationScope: "national", location: "中国", description: "传统敬老节日" },
       { id: 22, date: "2026-12-25", title: "圣诞节", type: "festival-china", locationScope: "national", location: "中国", description: "西方节日在中国" },
 
-      // Global Festivals - Global
+      // ========== 全球节日 ==========
       { id: 30, date: "2026-01-01", title: "元旦（全球）", type: "global", locationScope: "global", location: "全球", description: "新的一年开始" },
-      { id: 31, date: "2026-02-14", title: "情人节", type: "global", locationScope: "global", location: "全球", description: " Valentine's Day" },
-      { id: 32, date: "2026-03-14", title: "白色情人节", type: "global", locationScope: "global", location: "全球", description: " White Day" },
-      { id: 33, date: "2026-04-01", title: "愚人节", type: "global", locationScope: "global", location: "全球", description: " April Fools' Day" },
-      { id: 34, date: "2026-04-22", title: "地球日", type: "global", locationScope: "global", location: "全球", description: " World Earth Day" },
-      { id: 35, date: "2026-05-01", title: "国际劳动节", type: "global", locationScope: "global", location: "全球", description: " International Labour Day" },
-      { id: 36, date: "2026-06-05", title: "世界环境日", type: "global", locationScope: "global", location: "全球", description: " World Environment Day" },
+      { id: 31, date: "2026-02-14", title: "情人节", type: "global", locationScope: "global", location: "全球", description: "Valentine's Day" },
+      { id: 32, date: "2026-03-14", title: "白色情人节", type: "global", locationScope: "global", location: "全球", description: "White Day" },
+      { id: 33, date: "2026-04-01", title: "愚人节", type: "global", locationScope: "global", location: "全球", description: "April Fools' Day" },
+      { id: 34, date: "2026-04-22", title: "地球日", type: "global", locationScope: "global", location: "全球", description: "World Earth Day" },
+      { id: 35, date: "2026-05-01", title: "国际劳动节", type: "global", locationScope: "global", location: "全球", description: "International Labour Day" },
+      { id: 36, date: "2026-06-05", title: "世界环境日", type: "global", locationScope: "global", location: "全球", description: "World Environment Day" },
       { id: 37, date: "2026-07-14", title: "法国国庆日", type: "global", locationScope: "global", location: "法国", description: "巴士底日" },
-      { id: 38, date: "2026-10-31", title: "万圣节", type: "global", locationScope: "global", location: "全球", description: " Halloween" },
+      { id: 38, date: "2026-10-31", title: "万圣节", type: "global", locationScope: "global", location: "全球", description: "Halloween" },
       { id: 39, date: "2026-11-11", title: "双十一购物节", type: "global", locationScope: "national", location: "中国", description: "全球最大购物狂欢节" },
-      { id: 40, date: "2026-11-26", title: "感恩节", type: "global", locationScope: "global", location: "美国", description: " Thanksgiving" },
-      { id: 41, date: "2026-12-24", title: "平安夜", type: "global", locationScope: "global", location: "全球", description: " Christmas Eve" },
-      { id: 42, date: "2026-12-25", title: "圣诞节", type: "global", locationScope: "global", location: "全球", description: " Christmas" },
+      { id: 40, date: "2026-11-26", title: "感恩节", type: "global", locationScope: "global", location: "美国", description: "Thanksgiving" },
+      { id: 41, date: "2026-12-24", title: "平安夜", type: "global", locationScope: "global", location: "全球", description: "Christmas Eve" },
+      { id: 42, date: "2026-12-25", title: "圣诞节", type: "global", locationScope: "global", location: "全球", description: "Christmas" },
 
-      // Concerts - National
-      { id: 50, date: "2026-03-15", title: "Taylor Swift世界巡演", type: "concert", locationScope: "national", location: "上海站", description: " Eras Tour" },
-      { id: 51, date: "2026-04-10", title: "Coldplay世界巡演", type: "concert", locationScope: "national", location: "北京站", description: " Music of the Spheres" },
+      // ========== 演唱会/大型演出 ==========
+      { id: 50, date: "2026-03-15", title: "Taylor Swift世界巡演", type: "concert", locationScope: "national", location: "上海站", description: "Eras Tour" },
+      { id: 51, date: "2026-04-10", title: "Coldplay世界巡演", type: "concert", locationScope: "national", location: "北京站", description: "Music of the Spheres" },
       { id: 52, date: "2026-05-01", title: "迷笛音乐节", type: "concert", locationScope: "province", location: "浙江", description: "国内顶级摇滚音乐节" },
       { id: 53, date: "2026-06-20", title: "周杰伦世界巡演", type: "concert", locationScope: "city", location: "杭州站", description: "嘉年华世界巡回演唱会" },
       { id: 54, date: "2026-08-08", title: "张学友演唱会", type: "concert", locationScope: "national", location: "上海站", description: "经典个人演唱会" },
       { id: 55, date: "2026-11-15", title: "五月天演唱会", type: "concert", locationScope: "national", location: "北京站", description: "诺亚方舟十周年" },
+      { id: 56, date: "2026-05-15", endDate: "2026-05-17", title: "西湖音乐节", type: "concert", locationScope: "city", location: "杭州", description: "杭州本地大型音乐节" },
+      { id: 57, date: "2026-10-02", endDate: "2026-10-04", title: "氧气音乐节", type: "concert", locationScope: "province", location: "浙江", description: "长三角地区知名音乐节" },
 
-      // Tech - Global
-      { id: 60, date: "2026-03-25", title: "苹果春季发布会", type: "tech", locationScope: "global", location: "线上", description: " Apple Event" },
-      { id: 61, date: "2026-06-08", title: "WWDC2026", type: "tech", locationScope: "global", location: "线上", description: "苹果全球开发者大会" },
-      { id: 62, date: "2026-09-15", title: "苹果秋季发布会", type: "tech", locationScope: "global", location: "线上", description: " iPhone发布会" },
-      { id: 63, date: "2026-11-10", title: "双十一购物节", type: "tech", locationScope: "national", location: "中国", description: "电商平台年度大促" },
-      { id: 64, date: "2026-12-12", title: "双十二购物节", type: "tech", locationScope: "national", location: "中国", description: "年末购物狂欢" }
+      // ========== 考试 ==========
+      { id: 60, date: "2026-02-24", endDate: "2026-03-02", title: "考研初试成绩公布", type: "exam", locationScope: "national", location: "全国", description: "2026年研究生招生考试初试成绩" },
+      { id: 61, date: "2026-04-12", title: "省公务员考试", type: "exam", locationScope: "national", location: "全国", description: "公务员省考笔试" },
+      { id: 62, date: "2026-04-19", endDate: "2026-04-21", title: "自学考试", type: "exam", locationScope: "national", location: "全国", description: "高等教育自学考试" },
+      { id: 63, date: "2026-05-10", title: "初级会计职称考试", type: "exam", locationScope: "national", location: "全国", description: "会计专业技术资格考试" },
+      { id: 64, date: "2026-06-07", endDate: "2026-06-09", title: "高考", type: "exam", locationScope: "national", location: "全国", description: "普通高等学校招生全国统一考试" },
+      { id: 65, date: "2026-06-14", endDate: "2026-06-16", title: "中考", type: "exam", locationScope: "province", location: "浙江", description: "初中学业水平考试" },
+      { id: 66, date: "2026-06-21", title: "英语四六级考试", type: "exam", locationScope: "national", location: "全国", description: "大学英语四六级考试" },
+      { id: 67, date: "2026-09-13", title: "CPA考试", type: "exam", locationScope: "national", location: "全国", description: "注册会计师全国统一考试" },
+      { id: 68, date: "2026-10-25", title: "法考", type: "exam", locationScope: "national", location: "全国", description: "国家统一法律职业资格考试" },
+      { id: 69, date: "2026-11-08", title: "一级建造师考试", type: "exam", locationScope: "national", location: "全国", description: "建筑工程类执业资格考试" },
+      { id: 70, date: "2026-12-20", endDate: "2026-12-22", title: "考研初试", type: "exam", locationScope: "national", location: "全国", description: "2027年研究生招生考试初试" },
+
+      // ========== Livehouse ==========
+      { id: 80, date: "2026-03-28", title: "痛仰乐队Livehouse", type: "livehouse", locationScope: "city", location: "杭州", description: "痛仰" },
+      { id: 81, date: "2026-04-15", title: "新裤子乐队演出", type: "livehouse", locationScope: "city", location: "杭州", description: "新裤子" },
+      { id: 82, date: "2026-05-20", title: "告五人Livehouse巡演", type: "livehouse", locationScope: "province", location: "杭州", description: "告五人" },
+      { id: 83, date: "2026-06-10", title: "霓虹花园演出", type: "livehouse", locationScope: "city", location: "杭州", description: "霓虹花园" },
+      { id: 84, date: "2026-07-25", title: "重塑雕像权利", type: "livehouse", locationScope: "national", location: "上海", description: "重塑雕像的权利" },
+      { id: 85, date: "2026-08-30", title: "Deca Joins", type: "livehouse", locationScope: "city", location: "杭州", description: "Deca Joins" },
+      { id: 86, date: "2026-09-12", title: "马頔Livehouse", type: "livehouse", locationScope: "province", location: "宁波", description: "马頔" },
+      { id: 87, date: "2026-10-18", title: "刺猬乐队现场", type: "livehouse", locationScope: "city", location: "杭州", description: "刺猬" },
+      { id: 88, date: "2026-11-05", title: "逃跑计划Livehouse", type: "livehouse", locationScope: "national", location: "上海", description: "逃跑计划" },
+      { id: 89, date: "2026-12-12", title: "棱镜乐队巡演", type: "livehouse", locationScope: "city", location: "杭州", description: "棱镜" },
+
+      // ========== 民间活动 ==========
+      { id: 100, date: "2026-02-15", title: "杭州新春灯会", type: "folk", locationScope: "city", location: "杭州", description: "元宵节灯展活动" },
+      { id: 101, date: "2026-03-01", endDate: "2026-04-15", title: "西湖龙井开采", type: "folk", locationScope: "city", location: "杭州", description: "龙井茶春茶开采季" },
+      { id: 102, date: "2026-04-20", title: "谷雨茶会", type: "folk", locationScope: "city", location: "杭州", description: "春季品茶活动" },
+      { id: 103, date: "2026-05-05", title: "立夏民俗", type: "folk", locationScope: "province", location: "浙江", description: "江南传统节气习俗" },
+      { id: 104, date: "2026-06-01", title: "端午龙舟赛", type: "folk", locationScope: "city", location: "杭州", description: "传统龙舟竞渡" },
+      { id: 105, date: "2026-07-10", title: "西湖荷花展", type: "folk", locationScope: "city", location: "杭州", description: "夏季赏荷活动" },
+      { id: 106, date: "2026-08-15", title: "中元节放河灯", type: "folk", locationScope: "city", location: "杭州", description: "传统祭祀活动" },
+      { id: 107, date: "2026-09-20", title: "钱塘江观潮", type: "folk", locationScope: "city", location: "杭州", description: "钱塘江大潮最佳观赏期" },
+      { id: 108, date: "2026-10-07", title: "重阳登高", type: "folk", locationScope: "city", location: "杭州", description: "重阳登高祈福" },
+      { id: 109, date: "2026-11-12", title: "杭马美食节", type: "folk", locationScope: "city", location: "杭州", description: "马拉松配套美食活动" },
+      { id: 110, date: "2026-12-01", endDate: "2026-12-31", title: "西湖赏梅", type: "folk", locationScope: "city", location: "杭州", description: "冬季赏梅活动" },
+
+      // ========== 科技/其他 ==========
+      { id: 120, date: "2026-03-25", title: "苹果春季发布会", type: "tech", locationScope: "global", location: "线上", description: "Apple Event" },
+      { id: 121, date: "2026-06-08", title: "WWDC2026", type: "tech", locationScope: "global", location: "线上", description: "苹果全球开发者大会" },
+      { id: 122, date: "2026-09-15", title: "苹果秋季发布会", type: "tech", locationScope: "global", location: "线上", description: "iPhone发布会" },
+      { id: 123, date: "2026-11-10", title: "双十一购物节", type: "tech", locationScope: "national", location: "中国", description: "电商平台年度大促" },
+      { id: 124, date: "2026-12-12", title: "双十二购物节", type: "tech", locationScope: "national", location: "中国", description: "年末购物狂欢" },
+      { id: 125, date: "2026-04-25", title: "中国航天日", type: "tech", locationScope: "national", location: "中国", description: "中国航天事业纪念日" },
+      { id: 126, date: "2026-05-18", title: "国际博物馆日", type: "tech", locationScope: "global", location: "全球", description: "博物馆主题活动" }
     ];
+
+    // ========== 收藏功能 ==========
+    let favorites = JSON.parse(localStorage.getItem('calendarFavorites') || '[]');
+
+    function saveFavorites() {
+      localStorage.setItem('calendarFavorites', JSON.stringify(favorites));
+    }
+
+    function toggleFavorite(eventId) {
+      const idx = favorites.indexOf(eventId);
+      if (idx > -1) {
+        favorites.splice(idx, 1);
+      } else {
+        favorites.push(eventId);
+      }
+      saveFavorites();
+      renderEvents();
+    }
+
+    function isFavorite(eventId) {
+      return favorites.indexOf(eventId) > -1;
+    }
 
     // State
     let currentYear = 2026;
-    let currentMonth = 1; // 0-indexed (0 = January)
+    let currentMonth = 1;
     let selectedDate = null;
     let currentFilter = 'all';
     let currentScope = 'all';
+    let showFavoritesOnly = false;
 
-    // DOM Elements
     const calendarGrid = document.getElementById('calendarGrid');
     const monthTitle = document.getElementById('monthTitle');
+
     const eventList = document.getElementById('eventList');
     const eventSectionTitle = document.getElementById('eventSectionTitle');
     const prevMonthBtn = document.getElementById('prevMonth');
     const nextMonthBtn = document.getElementById('nextMonth');
     const filterTabs = document.querySelectorAll('.filter-tabs:first-of-type .filter-tab');
     const filterTabsLocation = document.querySelectorAll('.filter-tabs-location .filter-tab');
+    const favoritesTab = document.getElementById('favoritesTab');
 
-    // Get today's date
     const today = new Date();
     const currentYearToday = today.getFullYear();
     const currentMonthToday = today.getMonth();
     const currentDateToday = today.getDate();
 
-    // Initialize with current month if 2026
     if (currentYearToday === 2026) {
       currentYear = currentYearToday;
       currentMonth = currentMonthToday;
       selectedDate = currentDateToday;
     }
 
-    // Format date key
     function formatDateKey(year, month, day) {
       return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     }
 
-    // Get events for a specific date
     function getEventsForDate(dateKey) {
-      return events.filter(event => {
-        // Filter by event type
+      let filtered = events.filter(event => {
+        if (showFavoritesOnly && !isFavorite(event.id)) return false;
         if (currentFilter !== 'all' && event.type !== currentFilter) return false;
-        
-        // Filter by location scope
         if (currentScope !== 'all' && event.locationScope !== currentScope) return false;
         
-        // Check date range
         if (event.endDate) {
           return dateKey >= event.date && dateKey <= event.endDate;
         }
         return event.date === dateKey;
       });
+      
+      if (showFavoritesOnly) {
+        filtered = filtered.filter(e => isFavorite(e.id));
+      }
+      return filtered;
     }
 
-    // Get all event types for a date (for dots display)
     function getEventTypesForDate(dateKey) {
       const types = new Set();
       events.forEach(event => {
-        // Apply same filters
         if (currentFilter !== 'all' && event.type !== currentFilter) return;
         if (currentScope !== 'all' && event.locationScope !== currentScope) return;
+        if (showFavoritesOnly && !isFavorite(event.id)) return;
         
         if (event.endDate) {
           if (dateKey >= event.date && dateKey <= event.endDate) {
@@ -615,19 +584,16 @@
       return Array.from(types).slice(0, 3);
     }
 
-    // Render Calendar
     function renderCalendar() {
       const firstDay = new Date(currentYear, currentMonth, 1).getDay();
       const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
       const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
 
-      // Update month title
       const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
       monthTitle.textContent = `${currentYear}年${monthNames[currentMonth]}`;
 
       calendarGrid.innerHTML = '';
 
-      // Previous month days
       for (let i = firstDay - 1; i >= 0; i--) {
         const day = daysInPrevMonth - i;
         const dayEl = document.createElement('div');
@@ -636,7 +602,6 @@
         calendarGrid.appendChild(dayEl);
       }
 
-      // Current month days
       for (let day = 1; day <= daysInMonth; day++) {
         const dateKey = formatDateKey(currentYear, currentMonth, day);
         const eventsForDay = getEventsForDate(dateKey);
@@ -645,17 +610,14 @@
         const dayEl = document.createElement('div');
         dayEl.className = 'calendar-day';
 
-        // Check if today
         if (currentYear === currentYearToday && currentMonth === currentMonthToday && day === currentDateToday) {
           dayEl.classList.add('today');
         }
 
-        // Check if selected
         if (selectedDate === day) {
           dayEl.classList.add('selected');
         }
 
-        // Build event dots
         let dotsHtml = '';
         if (eventTypes.length > 0) {
           dotsHtml = `<div class="day-events">${eventTypes.map(type => `<div class="event-dot ${type}"></div>`).join('')}</div>`;
@@ -675,7 +637,6 @@
         calendarGrid.appendChild(dayEl);
       }
 
-      // Next month days
       const totalCells = firstDay + daysInMonth;
       const remainingCells = totalCells > 35 ? 42 - totalCells : 35 - totalCells;
       for (let day = 1; day <= remainingCells; day++) {
@@ -686,8 +647,22 @@
       }
     }
 
-    // Render Events
     function renderEvents() {
+      if (showFavoritesOnly) {
+        eventList.innerHTML = '';
+        const allFavorites = events.filter(e => isFavorite(e.id));
+        
+        if (allFavorites.length === 0) {
+          eventList.innerHTML = '<div class="no-events"><div class="no-events-icon">❤️</div><p>还没有收藏的事件</p></div>';
+          eventSectionTitle.textContent = '我的收藏';
+          return;
+        }
+        
+        eventSectionTitle.textContent = `❤️ 我的收藏 (${allFavorites.length}个)`;
+        eventList.innerHTML = allFavorites.map((event, index) => renderEventCard(event, index)).join('');
+        return;
+      }
+
       if (!selectedDate) {
         eventList.innerHTML = '<div class="no-events"><div class="no-events-icon">📅</div><p>点击日历中的日期查看事件</p></div>';
         eventSectionTitle.textContent = '事件列表';
@@ -705,43 +680,54 @@
         return;
       }
 
-      eventList.innerHTML = eventsForDay.map((event, index) => {
-        const typeLabels = {
-          'sports': '🏆 体育',
-          'festival-china': '🎌 中国节日',
-          'global': '🌍 全球节日',
-          'concert': '🎵 演唱会/演出',
-          'tech': '💻 科技/其他'
-        };
-
-        const scopeLabels = {
-          'city': '🏙️ 杭州',
-          'province': '🏯 浙江',
-          'national': '🇨🇳 全国',
-          'global': '🌐 全球'
-        };
-
-        let dateDisplay = event.date;
-        if (event.endDate && event.endDate !== event.date) {
-          dateDisplay = `${event.date} ~ ${event.endDate}`;
-        }
-
-        return `
-          <div class="event-card" style="animation-delay: ${index * 0.05}s">
-            <div class="event-tags">
-              <div class="event-type ${event.type}">${typeLabels[event.type] || event.type}</div>
-              <div class="location-scope ${event.locationScope}">${scopeLabels[event.locationScope] || ''}</div>
-            </div>
-            <div class="event-title">${event.title}</div>
-            <div class="event-date">📅 ${dateDisplay}</div>
-            <div class="event-location">📍 ${event.location}</div>
-            ${event.description ? `<div class="event-desc">${event.description}</div>` : ''}
-          </div>
-        `;
-      }).join('');
+      eventList.innerHTML = eventsForDay.map((event, index) => renderEventCard(event, index)).join('');
     }
 
-    // Event Listeners
+    function renderEventCard(event, index) {
+      const typeLabels = {
+        'sports': '🏆 体育',
+        'festival-china': '🎌 节日',
+        'global': '🌍 全球',
+        'concert': '🎵 演唱会/演出',
+        'exam': '📝 考试',
+        'livehouse': '🎸 Livehouse',
+        'folk': '🎭 民间活动',
+        'tech': '💻 科技'
+      };
+
+      const scopeLabels = {
+        'city': '🏙️ 杭州',
+        'province': '🏯 浙江',
+        'national': '🇨🇳 全国',
+        'global': '🌐 全球'
+      };
+
+      let dateDisplay = event.date;
+      if (event.endDate && event.endDate !== event.date) {
+        dateDisplay = `${event.date} ~ ${event.endDate}`;
+      }
+
+      const favClass = isFavorite(event.id) ? 'active' : '';
+
+      return `
+        <div class="event-card" style="animation-delay: ${index * 0.05}s">
+          <div class="event-tags">
+            <div class="event-type ${event.type}">${typeLabels[event.type] || event.type}</div>
+            <div class="location-scope ${event.locationScope}">${scopeLabels[event.locationScope] || ''}</div>
+          </div>
+          <div class="event-title">
+            ${event.title}
+            <button class="favorite-btn ${favClass}" onclick="toggleFavorite(${event.id})">
+              ${isFavorite(event.id) ? '❤️' : '🤍'}
+            </button>
+          </div>
+          <div class="event-date">📅 ${dateDisplay}</div>
+          <div class="event-location">📍 ${event.location}</div>
+          ${event.description ? `<div class="event-desc">${event.description}</div>` : ''}
+        </div>
+      `;
+    }
+
     prevMonthBtn.addEventListener('click', () => {
       currentMonth--;
       if (currentMonth < 0) {
@@ -766,13 +752,28 @@
       tab.addEventListener('click', () => {
         filterTabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        currentFilter = tab.dataset.filter;
+        
+        if (tab.dataset.filter === 'favorites') {
+          showFavoritesOnly = true;
+          favoritesTab.classList.add('active');
+        } else {
+          showFavoritesOnly = false;
+          favoritesTab.classList.remove('active');
+          currentFilter = tab.dataset.filter;
+        }
         renderCalendar();
         renderEvents();
       });
     });
 
-    // Location scope filter
+    favoritesTab.addEventListener('click', () => {
+      filterTabs.forEach(t => t.classList.remove('active'));
+      favoritesTab.classList.add('active');
+      showFavoritesOnly = true;
+      renderCalendar();
+      renderEvents();
+    });
+
     filterTabsLocation.forEach(tab => {
       tab.addEventListener('click', () => {
         filterTabsLocation.forEach(t => t.classList.remove('active'));
@@ -783,7 +784,6 @@
       });
     });
 
-    // Initial render
     renderCalendar();
     renderEvents();
   </script>
