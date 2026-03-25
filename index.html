@@ -97,6 +97,24 @@
       letter-spacing: 0.12em;
     }
 
+    .header .calendar-link {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .header .calendar-link:hover {
+      background: rgba(125,211,252,0.1);
+      border-color: var(--accent-cyan);
+    }
+
     @keyframes fadeDown {
       0% { opacity: 0; transform: translateY(-16px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -690,6 +708,7 @@
     <div class="header">
       <h1>杭州</h1>
       <div class="coords">东经 120.17° · 北纬 30.25°</div>
+      <a href="https://boyzhoulei-del.github.io/event-calendar/" class="calendar-link" target="_blank">📅 大事件日历</a>
     </div>
 
     <div class="tabs">
