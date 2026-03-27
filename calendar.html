@@ -10,7 +10,7 @@
     :root {
       --bg: #0a0a0f; --card-bg: #14141f; --accent: #f5c518;
       --text-primary: #fff; --text-secondary: #8888aa; --border: #1e1e2e;
-      --light-bg: #f5f5fa; --light-card: #fff; --light-text: #1a1a2e; --light-accent: #f5c518;
+      --light-bg: #f5f5fa; --light-card: #fff; --light-text: #1a1a2e;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Noto Sans SC', system-ui, sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; transition: all 0.3s; }
@@ -30,8 +30,10 @@
     .stat-card.active { border-color: var(--accent); background: rgba(245,197,24,0.1); }
     .stat-num { font-size: 24px; font-weight: 700; color: var(--accent); }
     .stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
-    .location-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--card-bg); border-radius: 12px; margin-bottom: 12px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); }
-    .location-bar:hover { border-color: var(--accent); }
+    .location-selector { display: flex; gap: 8px; margin-bottom: 12px; }
+    .location-btn { flex: 1; padding: 10px; border-radius: 12px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-primary); font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; }
+    .location-btn:hover { border-color: var(--accent); }
+    .location-btn.active { border-color: var(--accent); background: rgba(245,197,24,0.1); color: var(--accent); }
     .view-switch { display: flex; gap: 4px; background: var(--card-bg); border-radius: 10px; padding: 4px; margin-bottom: 12px; }
     .view-btn { flex: 1; padding: 8px; text-align: center; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; color: var(--text-secondary); }
     .view-btn.active { background: var(--accent); color: #000; }
@@ -45,7 +47,6 @@
     .sub-filter-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
     .sub-filter-tab { padding: 6px 12px; border-radius: 16px; font-size: 12px; white-space: nowrap; background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
     .sub-filter-tab.active { background: rgba(245,197,24,0.2); color: var(--accent); border-color: var(--accent); }
-    body.light .sub-filter-tab { background: rgba(0,0,0,0.05); }
     .month-nav { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
     .month-nav-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-primary); width: 36px; height: 36px; border-radius: 50%; font-size: 18px; cursor: pointer; transition: all 0.2s; }
     .month-nav-btn:hover { background: var(--accent); color: #000; }
@@ -55,7 +56,6 @@
     .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .calendar-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; cursor: pointer; transition: all 0.2s; position: relative; min-height: 44px; }
     .calendar-day:hover { background: rgba(255,255,255,0.1); }
-    body.light .calendar-day:hover { background: rgba(0,0,0,0.05); }
     .calendar-day.other-month { opacity: 0.3; }
     .calendar-day.today { background: rgba(245,197,24,0.2); border: 1px solid var(--accent); }
     .calendar-day.selected { background: var(--accent); }
@@ -68,11 +68,11 @@
     .event-dot { width: 4px; height: 4px; border-radius: 50%; position: absolute; bottom: 4px; }
     .event-section { flex: 1; padding-bottom: 20px; }
     .event-section-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
-    .share-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-primary); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
     .event-list { display: flex; flex-direction: column; gap: 12px; }
-    .event-card { background: var(--card-bg); border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s; animation: fadeIn 0.3s ease; border-left: 3px solid transparent; }
-    .event-card:hover { transform: translateX(4px); }
+    .event-card { background: var(--card-bg); border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.3s; animation: fadeIn 0.3s ease; border-left: 3px solid transparent; overflow: hidden; }
+    .event-card:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .event-image { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
     .event-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
     .event-type { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; }
     .location-scope { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 8px; font-size: 11px; background: rgba(136,136,170,0.15); color: var(--text-secondary); }
@@ -82,37 +82,52 @@
     .event-date { font-size: 13px; color: var(--text-secondary); margin-bottom: 4px; }
     .event-location { font-size: 13px; color: var(--text-secondary); }
     .countdown { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 8px 12px; background: rgba(245,197,24,0.1); border-radius: 8px; font-size: 12px; color: var(--accent); }
-    .countdown-icon { font-size: 16px; }
     .no-events { text-align: center; padding: 40px 20px; color: var(--text-secondary); }
     .no-events-icon { font-size: 48px; margin-bottom: 12px; }
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
-    .modal-content { background: var(--card-bg); border-radius: 16px; padding: 24px; max-width: 90%; max-height: 80vh; overflow-y: auto; width: 400px; transform: scale(0.9); transition: transform 0.3s; }
+    .modal-content { background: var(--card-bg); border-radius: 16px; padding: 0; max-width: 95%; max-height: 90vh; overflow-y: auto; width: 450px; transform: scale(0.9); transition: transform 0.3s; }
     .modal-overlay.active .modal-content { transform: scale(1); }
-    .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-    .modal-title { font-size: 20px; font-weight: 700; flex: 1; }
-    .modal-close { background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer; }
-    .modal-body { font-size: 14px; line-height: 1.8; }
+    .modal-header { padding: 20px 20px 0; display: flex; justify-content: space-between; align-items: flex-start; }
+    .modal-title { font-size: 20px; font-weight: 700; flex: 1; padding-right: 20px; }
+    .modal-close { background: var(--bg); border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .modal-media { width: 100%; height: 200px; object-fit: cover; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .modal-body { padding: 20px; font-size: 14px; line-height: 1.8; }
     .modal-body p { margin-bottom: 12px; }
-    .modal-link { display: flex; align-items: center; justify-content: center; gap: 8px; color: #000; text-decoration: none; padding: 12px 16px; border-radius: 8px; margin-top: 8px; font-weight: 600; transition: all 0.2s; }
+    .modal-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
+    .meta-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; }
+    .meta-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; }
+    .meta-value { font-size: 13px; font-weight: 600; }
+    .modal-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .modal-tag { padding: 4px 10px; border-radius: 12px; font-size: 12px; background: rgba(245,197,24,0.1); color: var(--accent); }
+    .modal-link { display: flex; align-items: center; justify-content: center; gap: 8px; color: #000; text-decoration: none; padding: 14px 16px; border-radius: 10px; margin-top: 8px; font-weight: 600; font-size: 14px; transition: all 0.2s; }
     .modal-link.primary { background: var(--accent); }
-    .modal-link.secondary { background: rgba(245,197,24,0.2); color: var(--accent); }
-    .modal-link:hover { transform: translateY(-2px); }
-    .modal-actions { display: flex; gap: 8px; flex-direction: column; margin-top: 16px; }
-    .favorites-page, .search-page, .week-page, .upcoming-page { display: none; padding-bottom: 20px; }
-    .favorites-page.active, .search-page.active, .week-page.active, .upcoming-page.active { display: block; }
+    .modal-link.secondary { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+    .modal-link:hover { transform: translateY(-2px); opacity: 0.9; }
+    .modal-actions { display: flex; gap: 8px; flex-direction: column; padding: 0 20px 20px; }
+    .reminder-section { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; padding: 16px; margin-top: 16px; }
+    .reminder-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .reminder-options { display: flex; gap: 8px; flex-wrap: wrap; }
+    .reminder-option { padding: 8px 14px; border-radius: 20px; font-size: 12px; background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.2s; }
+    .reminder-option.selected { background: #fff; color: #f5576c; }
+    .favorites-page, .search-page, .week-page, .upcoming-page, .city-select-page { display: none; padding-bottom: 20px; }
+    .favorites-page.active, .search-page.active, .week-page.active, .upcoming-page.active, .city-select-page.active { display: block; }
     .page-header { display: flex; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
     .page-back { background: none; border: none; color: var(--text-secondary); font-size: 20px; cursor: pointer; }
     .page-title { font-size: 18px; font-weight: 600; }
     .page-count { background: var(--accent); color: #000; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+    .city-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .city-item { padding: 12px; text-align: center; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+    .city-item:hover { border-color: var(--accent); color: var(--accent); }
+    .city-item.selected { background: var(--accent); color: #000; border-color: var(--accent); }
     .subscribe-section { background: var(--card-bg); border-radius: 12px; padding: 16px; margin-top: 16px; border: 1px solid var(--border); }
     .subscribe-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
     .subscribe-btns { display: flex; gap: 8px; flex-wrap: wrap; }
     .sub-btn { padding: 10px 16px; border-radius: 8px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-primary); transition: all 0.2s; }
     .sub-btn:hover { border-color: var(--accent); color: var(--accent); }
     .sub-btn.primary { background: var(--accent); color: #000; border-color: var(--accent); }
-    .week-view { display: none; }
-    .week-view.active { display: block; }
+    .week-view, .list-view { display: none; }
+    .week-view.active, .list-view.active { display: block; }
     .week-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
     .week-date { width: 50px; text-align: center; }
     .week-day-num { font-size: 20px; font-weight: 700; color: var(--text-secondary); }
@@ -120,8 +135,6 @@
     .week-day-name { font-size: 12px; color: var(--text-secondary); }
     .week-events { flex: 1; display: flex; flex-direction: column; gap: 4px; }
     .week-event { padding: 4px 8px; border-radius: 4px; font-size: 12px; background: rgba(245,197,24,0.1); color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .list-view { display: none; }
-    .list-view.active { display: block; }
     .list-item { display: flex; align-items: center; padding: 12px; background: var(--card-bg); border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; }
     .list-item:hover { transform: translateX(4px); }
     .list-date { width: 60px; text-align: center; padding-right: 12px; }
@@ -137,9 +150,6 @@
     .ai-tags { display: flex; gap: 8px; flex-wrap: wrap; }
     .ai-tag { padding: 6px 12px; border-radius: 16px; font-size: 12px; background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.2s; }
     .ai-tag:hover { background: rgba(255,255,255,0.3); }
-    .share-modal { text-align: center; }
-    .share-qr { background: #fff; border-radius: 12px; padding: 20px; margin: 16px 0; }
-    .share-url { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin: 12px 0; font-size: 12px; color: var(--text-secondary); word-break: break-all; }
     @media (max-width: 400px) { .container { padding: 0 12px; } .header h1 { font-size: 16px; } }
   </style>
 </head>
@@ -151,13 +161,10 @@
       <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
     </header>
 
-    <!-- 搜索栏 -->
     <div class="search-bar">
       <input type="text" class="search-input" id="searchInput" placeholder="🔍 搜索事件...">
-      <button class="month-nav-btn" style="width:auto;padding:0 12px" onclick="searchEvents()">搜索</button>
     </div>
 
-    <!-- 快捷统计 -->
     <div class="quick-stats">
       <div class="stat-card" onclick="showToday()" id="todayStat">
         <div class="stat-num" id="todayCount">0</div>
@@ -173,7 +180,6 @@
       </div>
     </div>
 
-    <!-- AI推荐 -->
     <div class="ai-section">
       <div class="ai-header">
         <span class="ai-icon">🤖</span>
@@ -182,21 +188,24 @@
       <div class="ai-tags" id="aiRecommendations"></div>
     </div>
 
-    <!-- 视图切换 -->
     <div class="view-switch">
       <button class="view-btn active" onclick="switchView('month')" id="monthViewBtn">月</button>
       <button class="view-btn" onclick="switchView('week')" id="weekViewBtn">周</button>
       <button class="view-btn" onclick="switchView('list')" id="listViewBtn">列表</button>
     </div>
 
-    <!-- 位置栏 -->
-    <div class="location-bar" onclick="requestLocation()">
-      <span class="loc-icon">📍</span>
-      <span class="loc-text">当前城市：<span class="loc-name" id="locName">杭州</span></span>
-      <span style="color:var(--text-secondary);font-size:12px">定位 ›</span>
+    <div class="location-selector">
+      <button class="location-btn active" onclick="showCitySelect('province')" id="cityBtn">
+        <span>📍</span>
+        <span id="cityText">浙江</span>
+      </button>
+      <button class="location-btn" onclick="showCitySelect('city')" id="cityBtn2">
+        <span>🏙️</span>
+        <span id="cityText2">杭州</span>
+      </button>
+      <button class="location-btn" onclick="requestLocation()">🎯 GPS定位</button>
     </div>
 
-    <!-- 分类筛选 -->
     <div class="filter-section">
       <div class="filter-label">📂 事件分类</div>
       <div class="filter-tabs">
@@ -229,26 +238,23 @@
       </div>
     </div>
 
-    <!-- 功能按钮 -->
     <div class="filter-section">
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="fav-btn-full" onclick="showFavoritesPage()" style="flex:1;min-width:45%">
+        <button class="sub-btn" onclick="showFavoritesPage()" style="flex:1;min-width:45%">
           ❤️ 收藏 (<span id="favCount">0</span>)
         </button>
-        <button class="fav-btn-full" onclick="showSubscribeModal()" style="flex:1;min-width:45%">
+        <button class="sub-btn" onclick="showSubscribeModal()" style="flex:1;min-width:45%">
           📅 订阅日历
         </button>
       </div>
     </div>
 
-    <!-- 月份导航 -->
     <div class="month-nav">
       <button class="month-nav-btn" id="prevMonth">‹</button>
       <span class="month-title" id="monthTitle">2026年3月</span>
       <button class="month-nav-btn" id="nextMonth">›</button>
     </div>
 
-    <!-- 月视图 -->
     <div class="calendar" id="monthView">
       <div class="calendar-header">
         <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
@@ -256,23 +262,15 @@
       <div class="calendar-grid" id="calendarGrid"></div>
     </div>
 
-    <!-- 周视图 -->
     <div class="week-view" id="weekView"></div>
-
-    <!-- 列表视图 -->
     <div class="list-view" id="listView"></div>
 
-    <!-- 事件列表 -->
     <div class="event-section" id="eventSection">
-      <div class="event-section-title">
-        <span id="eventSectionTitle">今天的事件</span>
-        <button class="share-btn" onclick="showShareModal()">🔗 分享</button>
-      </div>
+      <div class="event-section-title" id="eventSectionTitle">今天的事件</div>
       <div class="event-list" id="eventList"></div>
     </div>
   </div>
 
-  <!-- 收藏页 -->
   <div class="favorites-page" id="favoritesPage">
     <div class="page-header">
       <button class="page-back" onclick="hideFavoritesPage()">←</button>
@@ -282,7 +280,6 @@
     <div class="event-list" id="favoritesList"></div>
   </div>
 
-  <!-- 搜索页 -->
   <div class="search-page" id="searchPage">
     <div class="page-header">
       <button class="page-back" onclick="hideSearchPage()">←</button>
@@ -292,7 +289,6 @@
     <div class="event-list" id="searchResults"></div>
   </div>
 
-  <!-- 即将开始页 -->
   <div class="upcoming-page" id="upcomingPage">
     <div class="page-header">
       <button class="page-back" onclick="hideUpcomingPage()">←</button>
@@ -302,19 +298,26 @@
     <div class="event-list" id="upcomingList"></div>
   </div>
 
-  <!-- 详情弹窗 -->
+  <div class="city-select-page" id="citySelectPage">
+    <div class="page-header">
+      <button class="page-back" onclick="hideCitySelect()">←</button>
+      <span class="page-title" id="citySelectTitle">选择省份</span>
+    </div>
+    <div class="city-grid" id="cityGrid"></div>
+  </div>
+
   <div class="modal-overlay" id="eventModal">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title" id="modalTitle">事件详情</div>
         <button class="modal-close" onclick="closeModal()">×</button>
       </div>
+      <img class="modal-media" id="modalMedia" src="" alt="">
       <div class="modal-body" id="modalBody"></div>
       <div class="modal-actions" id="modalActions"></div>
     </div>
   </div>
 
-  <!-- 订阅弹窗 -->
   <div class="modal-overlay" id="subscribeModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -334,23 +337,7 @@
     </div>
   </div>
 
-  <!-- 分享弹窗 -->
-  <div class="modal-overlay" id="shareModal">
-    <div class="modal-content share-modal">
-      <div class="modal-header">
-        <div class="modal-title">🔗 分享日历</div>
-        <button class="modal-close" onclick="closeShareModal()">×</button>
-      </div>
-      <div class="modal-body share-modal">
-        <p>分享给好友，一起发现精彩活动！</p>
-        <div class="share-url" id="shareUrl">https://boyzhoulei-del.github.io/weather-app/calendar.html</div>
-        <button class="sub-btn primary" onclick="copyShareUrl()" style="width:100%">📋 复制链接</button>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // 配置
     const typeColors = {
       'concert':'#a855f7','livehouse':'#ec4899','festival-music':'#d946ef','movie-premiere':'#8b5cf6','tv-show':'#6366f1','theater':'#4f46e5',
       'exam':'#f97316','enrollment':'#fb923c','competition':'#f59e0b','seminar':'#d97706',
@@ -360,7 +347,6 @@
       'auto-show':'#ef4444','trade':'#f87171',
       'festival-china':'#ef4444','festival-global':'#f5c518','festival-west':'#fbbf24'
     };
-
     const typeLabels = {
       'concert':'🎵 演唱会','livehouse':'🎸 Livehouse','festival-music':'🎪 音乐节','movie-premiere':'🎬 电影首映','tv-show':'📺 综艺','theater':'🎭 戏剧',
       'exam':'📝 考试','enrollment':'🎓 招生','competition':'🏅 竞赛','seminar':'💡 讲座',
@@ -370,7 +356,6 @@
       'auto-show':'🚘 车展','trade':'🤝 贸易展',
       'festival-china':'🧧 中国传统','festival-global':'🌍 全球节日','festival-west':'🎄 西方节日'
     };
-
     const categoryTypes = {
       'entertainment':['concert','livehouse','festival-music','movie-premiere','tv-show','theater'],
       'education':['exam','enrollment','competition','seminar'],
@@ -380,88 +365,73 @@
       'business':['auto-show','trade'],
       'festival':['festival-china','festival-global','festival-west']
     };
-
     const scopeLabels = {'city':'🏙️ 本市','province':'🏯 本省','national':'🇨🇳 全国','global':'🌐 全球'};
     const dayNames = ['周日','周一','周二','周三','周四','周五','周六'];
     const monthNames = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-    // 事件数据（丰富版 - 带详情、链接等）
+    const provinces = ['北京','上海','天津','重庆','浙江','江苏','广东','四川','湖北','湖南','陕西','山东','河南','河北','安徽','福建','辽宁','吉林','黑龙江','江西','云南','贵州','山西','甘肃','青海','内蒙古','广西','海南','宁夏','新疆','西藏'];
+    const cities = {
+      '北京':['北京'],'上海':['上海'],'天津':['天津'],'重庆':['重庆'],
+      '浙江':['杭州','宁波','温州','嘉兴','湖州','绍兴','金华','衢州','舟山','台州','丽水'],
+      '江苏':['南京','苏州','无锡','常州','南通','扬州','盐城','徐州','淮安','连云港','泰州','镇江'],
+      '广东':['广州','深圳','佛山','东莞','珠海','中山','惠州','江门','肇庆','汕头','湛江','韶关'],
+      '四川':['成都','绵阳','德阳','宜宾','南充','乐山','自贡','内江','遂宁'],
+      '湖北':['武汉','宜昌','襄阳','荆州','黄石','十堰','孝感'],
+      '湖南':['长沙','株洲','湘潭','衡阳','岳阳','常德','张家界'],
+      '陕西':['西安','宝鸡','咸阳','渭南','延安','榆林'],
+      '山东':['济南','青岛','烟台','潍坊','淄博','威海','临沂']
+    };
+    // 城市数据
+    const allCities = ['杭州','上海','北京','广州','深圳','成都','武汉','南京','西安','重庆','苏州','宁波','天津','长沙','郑州','东莞','佛山','青岛','济南','大连','沈阳','哈尔滨','长春','石家庄','太原','呼和浩特','南宁','海口','昆明','贵阳','拉萨','兰州','西宁','银川','乌鲁木齐'];
+    
+    // 事件数据（带图片URL）
     const events = [
-      // 演唱会
-      {id:1,date:"2026-03-28",title:"林俊杰演唱会",type:"concert",category:"entertainment",locationScope:"national",location:"杭州",description:"JJ林俊杰时线演唱会，带来经典金曲和惊喜曲目",venue:"杭州奥体中心",price:"380-1280元",organizer:"大象音乐",tags:"演唱会,华语,流行",link:"https://music.163.com",ticketLink:"https://www.damai.cn"},
-      {id:2,date:"2026-04-05",title:"周杰伦演唱会",type:"concert",category:"entertainment",locationScope:"national",location:"上海",description:"嘉年华世界巡回演唱会上海站，经典金曲大合唱",venue:"梅赛德斯奔驰文化中心",price:"580-2000元",organizer:"杰威尔音乐",tags:"演唱会,华语,经典",link:"https://www.jvrmusic.com",ticketLink:"https://www.damai.cn"},
-      {id:3,date:"2026-04-18",title:"五月天演唱会",type:"concert",category:"entertainment",locationScope:"national",location:"北京",description:"诺亚方舟十周年复刻版，万人合唱经典",venue:"鸟巢国家体育场",price:"355-1855元",organizer:"相信音乐",tags:"演唱会,摇滚,经典",link:"https://www.iamMayday.com",ticketLink:"https://www.228.com.cn"},
-      {id:4,date:"2026-05-10",title:"薛之谦演唱会",type:"concert",category:"entertainment",locationScope:"national",location:"杭州",description:"天外来物巡回演唱会，幽默与深情并存",venue:"黄龙体育中心",price:"317-1317元",organizer:"万代音乐",tags:"演唱会,华语,幽默",link:"https://music.163.com",ticketLink:"https://www.damai.cn"},
-      {id:5,date:"2026-06-20",title:"Coldplay世界巡演",type:"concert",category:"entertainment",locationScope:"global",location:"北京",description:"Music of the Spheres Tour，环保主题演唱会，视觉盛宴",venue:"北京国家体育场(鸟巢)",price:"580-2280元",organizer:"Live Nation",tags:"演唱会,英文,摇滚",link:"https://www.coldplay.com",ticketLink:"https://www.damai.cn"},
-      {id:6,date:"2026-07-15",title:"张惠妹演唱会",type:"concert",category:"entertainment",locationScope:"national",location:"上海",description:"ASMR世界巡演上海站，歌后实力开唱",venue:"梅赛德斯奔驰文化中心",price:"480-1680元",organizer:"声动娱乐",tags:"演唱会,华语,天后",link:"https://music.163.com",ticketLink:"https://www.228.com.cn"},
-      // 音乐节
-      {id:10,date:"2026-04-25",endDate:"2026-04-27",title:"迷笛音乐节",type:"festival-music",category:"entertainment",locationScope:"province",location:"浙江",description:"国内顶级摇滚音乐节，崔健痛仰等重磅乐队",venue:"浙江某露营基地",price:"280-380元/天",organizer:"迷笛",tags:"音乐节,摇滚,live",link:"http://www.midi.cn",ticketLink:"https://www.damai.cn"},
-      {id:11,date:"2026-05-15",endDate:"2026-05-17",title:"西湖音乐节",type:"festival-music",category:"entertainment",locationScope:"city",location:"杭州",description:"杭州本地大型音乐节，融合民谣、摇滚、电子",venue:"太子湾公园",price:"299-699元",organizer:"西湖音乐节组委会",tags:"音乐节,民谣,户外",link:"https://www.xihumusic.com",ticketLink:"https://www.damai.cn"},
-      {id:12,date:"2026-06-01",endDate:"2026-06-02",title:"草莓音乐节",type:"festival-music",category:"entertainment",locationScope:"national",location:"上海",description:"摩登天空旗舰音乐节，新裤子、重塑等参演",venue:"上海滩运动公园",price:"360-680元",organizer:"摩登天空",tags:"音乐节,摇滚,电子",link:"https://www.modernskyclub.com",ticketLink:"https://www.damai.cn"},
-      {id:13,date:"2026-08-20",endDate:"2026-08-23",title:"氧气音乐节",type:"festival-music",category:"entertainment",locationScope:"province",location:"宁波",description:"长三角地区知名音乐节，阵容豪华",venue:"宁波文化广场",price:"299-599元",organizer:"氧气音乐节",tags:"音乐节,流行,户外",link:"https://www.youngmusic.com",ticketLink:"https://www.228.com.cn"},
-      // Livehouse
-      {id:20,date:"2026-03-28",title:"痛仰乐队Livehouse",type:"livehouse",category:"entertainment",locationScope:"city",location:"杭州",description:"痛仰乐队专场演出，高虎带你躁起来",venue:"MAO Livehouse杭州",price:"198-298元",organizer:"MAO Livehouse",tags:"Livehouse,摇滚,现场",link:"https://www.maolivehouse.com",ticketLink:"https://www.damai.cn"},
-      {id:21,date:"2026-04-05",title:"新裤子乐队演出",type:"livehouse",category:"entertainment",locationScope:"city",location:"杭州",description:"新裤子乐队巡演杭州站，disco与摇滚",venue:"大麦66 Livehouse",price:"268-368元",organizer:"大麦66",tags:"Livehouse,摇滚,Disco",link:"https://www.66livehouse.com",ticketLink:"https://www.damai.cn"},
-      {id:22,date:"2026-04-18",title:"告五人Livehouse巡演",type:"livehouse",category:"entertainment",locationScope:"national",location:"上海",description:"告五人第一次新世界巡回演唱会",venue:"ModernSky LAB",price:"288-388元",organizer:"MODERNSKY",tags:"Livehouse,台湾,独立",link:"https://www.accusefive.com",ticketLink:"https://www.228.com.cn"},
-      {id:23,date:"2026-05-02",title:"Deca Joins",type:"livehouse",category:"entertainment",locationScope:"city",location:"杭州",description:"Deca Joins 2026中国巡演杭州站",venue:"MAO Livehouse杭州",price:"198-298元",organizer:"MAO Livehouse",tags:"Livehouse,台湾,indie",link:"https://www.deca-joins.com",ticketLink:"https://www.damai.cn"},
-      {id:24,date:"2026-05-15",title:"马頔Livehouse",type:"livehouse",category:"entertainment",locationScope:"city",location:"杭州",description:"马頔孤岛唱游记巡演",venue:"大麦66 Livehouse",price:"228-328元",organizer:"大麦66",tags:"Livehouse,民谣,独立",link:"https://music.163.com",ticketLink:"https://www.228.com.cn"},
-      {id:25,date:"2026-06-10",title:"刺猬乐队现场",type:"livehouse",category:"entertainment",locationScope:"national",location:"上海",description:"刺猬乐队2026巡演",venue:"VAS LIVE",price:"238-338元",organizer:"VAS",tags:"Livehouse,摇滚,女声",link:"https://www.vaslive.com",ticketLink:"https://www.damai.cn"},
-      {id:26,date:"2026-07-20",title:"棱镜乐队巡演",type:"livehouse",category:"entertainment",locationScope:"city",location:"杭州",description:"棱镜乐队2026巡演杭州站",venue:"MAO Livehouse杭州",price:"188-288元",organizer:"MAO Livehouse",tags:"Livehouse,电子,氛围",link:"https://music.163.com",ticketLink:"https://www.damai.cn"},
-      // 考试
-      {id:50,date:"2026-04-11",title:"省公务员考试",type:"exam",category:"education",locationScope:"national",location:"全国",description:"公务员省考笔试日",venue:"各地考场",price:"免费",organizer:"国家公务员局",tags:"考试,公务员,编制",link:"http://www.chinagwy.org",ticketLink:""},
-      {id:51,date:"2026-04-18",endDate:"2026-04-20",title:"自学考试",type:"exam",category:"education",locationScope:"national",location:"全国",description:"高等教育自学考试",venue:"各地考场",price:"免费",organizer:"教育考试院",tags:"考试,自学,学历",link:"https://www.neea.edu.cn",ticketLink:""},
-      {id:52,date:"2026-05-10",title:"初级会计职称考试",type:"exam",category:"education",locationScope:"national",location:"全国",description:"会计专业技术资格考试(初级)",venue:"各地考场",price:"免费",organizer:"财政部",tags:"考试,会计,职称",link:"https://www.cacx.org.cn",ticketLink:""},
-      {id:53,date:"2026-06-07",endDate:"2026-06-09",title:"高考",type:"exam",category:"education",locationScope:"national",location:"全国",description:"普通高等学校招生全国统一考试",venue:"各地中学考场",price:"免费",organizer:"教育部",tags:"考试,高考,命运",link:"https://www.neea.edu.cn",ticketLink:""},
-      {id:54,date:"2026-06-13",endDate:"2026-06-15",title:"中考",type:"exam",category:"education",locationScope:"province",location:"浙江",description:"初中学业水平考试",venue:"各地中学考场",price:"免费",organizer:"浙江省教育厅",tags:"考试,中考,初中",link:"https://www.zjzs.net",ticketLink:""},
-      {id:55,date:"2026-06-21",title:"英语四六级考试",type:"exam",category:"education",locationScope:"national",location:"全国",description:"大学英语四六级考试",venue:"各地高校考场",price:"免费",organizer:"教育部考试中心",tags:"考试,英语,大学",link:"https://www.neea.edu.cn",ticketLink:""},
-      {id:56,date:"2026-09-12",title:"CPA考试",type:"exam",category:"education",locationScope:"national",location:"全国",description:"注册会计师全国统一考试",venue:"各地考场",price:"报名费",organizer:"中国注册会计师协会",tags:"考试,注会,财务",link:"https://www.cicpa.org.cn",ticketLink:""},
-      {id:57,date:"2026-10-18",title:"法考",type:"exam",category:"education",locationScope:"national",location:"全国",description:"国家统一法律职业资格考试",venue:"各地考场",price:"报名费",organizer:"司法部",tags:"考试,法律,职业资格",link:"https://www.moj.gov.cn",ticketLink:""},
-      // 科技发布会
-      {id:70,date:"2026-03-30",title:"苹果春季发布会",type:"tech-release",category:"tech",locationScope:"global",location:"线上",description:"Apple Event，预计发布新款iPad和Mac",venue:"Apple Park",price:"免费直播",organizer:"Apple",tags:"发布会,苹果,科技",link:"https://www.apple.com",ticketLink:""},
-      {id:71,date:"2026-05-20",title:"Google I/O 2026",type:"tech-release",category:"tech",locationScope:"global",location:"美国",description:"Google开发者大会，AI新功能发布",venue:"M Shoreline Amphitheatre",price:"免费直播",organizer:"Google",tags:"发布会,Google,AI",link:"https://io.google",ticketLink:""},
-      {id:72,date:"2026-06-08",title:"WWDC2026",type:"tech-release",category:"tech",locationScope:"global",location:"线上",description:"苹果全球开发者大会，iOS/macOS新版本发布",venue:"Apple Park",price:"免费直播",organizer:"Apple",tags:"发布会,苹果,开发者",link:"https://developer.apple.com/wwdc",ticketLink:""},
-      {id:73,date:"2026-08-20",title:"华为开发者大会",type:"tech-release",category:"tech",locationScope:"national",location:"深圳",description:"HDC 2026，鸿蒙新版本发布",venue:"华为总部",price:"免费",organizer:"华为",tags:"发布会,华为,鸿蒙",link:"https://developer.huawei.com",ticketLink:""},
-      {id:74,date:"2026-09-15",title:"苹果秋季发布会",type:"tech-release",category:"tech",locationScope:"global",location:"线上",description:"iPhone 18系列发布会",venue:"Apple Park",price:"免费直播",organizer:"Apple",tags:"发布会,苹果,iPhone",link:"https://www.apple.com",ticketLink:""},
-      {id:75,date:"2026-10-15",title:"微软Surface发布会",type:"tech-release",category:"tech",locationScope:"global",location:"线上",description:"微软Surface新品发布",venue:"微软总部",price:"免费直播",organizer:"Microsoft",tags:"发布会,微软,Surface",link:"https://www.microsoft.com",ticketLink:""},
-      // 汽车发布
-      {id:80,date:"2026-04-10",title:"小米汽车发布会",type:"auto",category:"tech",locationScope:"national",location:"北京",description:"小米新车发布，年轻人的第一辆车",venue:"小米科技园",price:"待定",organizer:"小米",tags:"发布会,小米,汽车",link:"https://www.xiaomi.com",ticketLink:""},
-      {id:81,date:"2026-09-10",title:"蔚来NIO Day",type:"auto",category:"tech",locationScope:"national",location:"合肥",description:"蔚来年度发布会，新车型发布",venue:"合肥国际会展中心",price:"免费",organizer:"蔚来",tags:"发布会,蔚来,新能源",link:"https://www.nio.cn",ticketLink:""},
-      {id:82,date:"2026-06-01",title:"比亚迪新车发布",type:"auto",category:"tech",locationScope:"national",location:"深圳",description:"比亚迪新车型发布，搭载最新技术",venue:"比亚迪全球总部",price:"免费",organizer:"比亚迪",tags:"发布会,比亚迪,新能源",link:"https://www.byd.com",ticketLink:""},
-      {id:83,date:"2026-03-15",title:"特斯拉Model发布",type:"auto",category:"tech",locationScope:"global",location:"美国",description:"特斯拉新车型发布",venue:"特斯拉德州工厂",price:"待定",organizer:"Tesla",tags:"发布会,特斯拉,电动车",link:"https://www.tesla.com",ticketLink:""},
-      // 航天
-      {id:85,date:"2026-04-24",title:"中国航天日",type:"space",category:"tech",locationScope:"national",location:"全国",description:"中国航天事业纪念日，航天科普活动",venue:"各地航天基地",price:"免费",organizer:"中国航天科工集团",tags:"航天,科普,纪念日",link:"http://www.spacechina.com",ticketLink:""},
-      {id:86,date:"2026-07-20",title:"嫦娥七号发射",type:"space",category:"tech",locationScope:"national",location:"文昌",description:"月球探测任务发射",venue:"文昌航天发射场",price:"免费观看",organizer:"国家航天局",tags:"航天,月球,发射",link:"http://www.cnsa.gov.cn",ticketLink:""},
-      {id:87,date:"2026-10-05",title:"SpaceX星舰发射",type:"space",category:"tech",locationScope:"global",location:"美国",description:"Starship重要测试任务",venue:"SpaceX德州基地",price:"免费直播",organizer:"SpaceX",tags:"航天,SpaceX,火箭",link:"https://www.spacex.com",ticketLink:""},
-      {id:88,date:"2026-08-15",title:"天舟七号发射",type:"space",category:"tech",locationScope:"national",location:"文昌",description:"货运飞船发射任务",venue:"文昌航天发射场",price:"免费观看",organizer:"国家航天局",tags:"航天,货运飞船",link:"http://www.cnsa.gov.cn",ticketLink:""},
-      // 游戏/电竞
-      {id:95,date:"2026-06-15",endDate:"2026-06-18",title:"E3游戏展",type:"gaming",category:"tech",locationScope:"global",location:"美国",description:"全球最大游戏盛会，各大厂商新游戏发布",venue:"洛杉矶会展中心",price:"门票",organizer:"ESA",tags:"游戏展,电竞赛,发布",link:"https://www.e3expo.com",ticketLink:""},
-      {id:96,date:"2026-08-01",endDate:"2026-08-04",title:"ChinaJoy",type:"gaming",category:"tech",locationScope:"national",location:"上海",description:"中国国际数码互动娱乐展",venue:"上海新国际博览中心",price:"100-300元",organizer:"ChinaJoy组委会",tags:"游戏展,动漫,电竞赛",link:"https://www.chinajoy.net",ticketLink:"https://www.chinajoy.net"},
-      {id:97,date:"2026-06-20",title:"LOL全球总决赛",type:"esports",category:"sports",locationScope:"global",location:"上海",description:"英雄联盟S16全球总决赛",venue:"上海梅赛德斯奔驰文化中心",price:"待定",organizer:"Riot Games",tags:"电竞,LOL,全球总决赛",link:"https://lolesports.com",ticketLink:"https://www.damai.cn"},
-      // 体育
-      {id:100,date:"2026-09-25",endDate:"2026-10-11",title:"亚运会",type:"olympics",category:"sports",locationScope:"global",location:"大阪",description:"亚洲最大综合性运动会",venue:"大阪各场馆",price:"待定",organizer:"亚奥理事会",tags:"运动会,亚运,竞技",link:"https://www.olympic.org",ticketLink:""},
-      {id:101,date:"2026-05-30",endDate:"2026-06-21",title:"温布尔登网球锦标赛",type:"sports",category:"sports",locationScope:"global",location:"伦敦",description:"网球四大满贯之一",venue:"温布尔登",price:"门票",organizer:"全英草地网球俱乐部",tags:"网球,大满贯,温网",link:"https://www.wimbledon.com",ticketLink:""},
-      {id:102,date:"2026-04-05",title:"杭州马拉松",type:"marathon",category:"sports",locationScope:"city",location:"杭州",description:"国际马拉松赛事，穿过西湖景区",venue:"杭州黄龙体育中心",price:"120-150元",organizer:"杭州市体育局",tags:"马拉松,跑步,赛事",link:"https://www.hangzhou-marathon.com",ticketLink:"https://www.damai.cn"},
-      {id:103,date:"2026-11-01",title:"上海马拉松",type:"marathon",category:"sports",locationScope:"national",location:"上海",description:"上海国际马拉松",venue:"上海外滩",price:"100-150元",organizer:"上海市体育局",tags:"马拉松,跑步,赛事",link:"https://www.shang-ma.com",ticketLink:"https://www.damai.cn"},
-      {id:104,date:"2026-03-20",endDate:"2026-03-23",title:"CBA季后赛",type:"sports",category:"sports",locationScope:"national",location:"浙江",description:"中国男子篮球职业联赛季后赛",venue:"浙江稠州银行篮球馆",price:"80-380元",organizer:"CBA联盟",tags:"篮球,CBA,季后赛",link:"https://www.cba联赛.com",ticketLink:"https://www.damai.cn"},
-      // 博物馆/文化
-      {id:110,date:"2026-03-15",endDate:"2026-06-15",title:"故宫春季特展",type:"museum",category:"culture",locationScope:"national",location:"北京",description:"故宫博物院春季特别展览",venue:"故宫博物院",price:"60元(含门票)",organizer:"故宫博物院",tags:"博物馆,展览,历史",link:"https://www.dpm.org.cn",ticketLink:"https://www.dpm.org.cn"},
-      {id:111,date:"2026-05-18",title:"国际博物馆日",type:"museum",category:"culture",locationScope:"global",location:"全球",description:"博物馆主题活动，全国博物馆免费开放",venue:"各地博物馆",price:"免费",organizer:"国际博物馆协会",tags:"博物馆,免费,纪念日",link:"https://icom.museum",ticketLink:""},
-      {id:112,date:"2026-06-01",endDate:"2026-08-31",title:"浙江省博物馆夏季展",type:"museum",category:"culture",locationScope:"province",location:"杭州",description:"浙江省博物馆夏季特展",venue:"浙江省博物馆",price:"免费",organizer:"浙江省博物馆",tags:"博物馆,展览,历史",link:"https://www.zjmuseum.com.cn",ticketLink:""},
-      {id:113,date:"2026-09-01",endDate:"2026-11-30",title:"中国丝绸博物馆特展",type:"museum",category:"culture",locationScope:"city",location:"杭州",description:"丝绸博物馆秋季特展",venue:"中国丝绸博物馆",price:"免费",organizer:"中国丝绸博物馆",tags:"博物馆,丝绸,展览",link:"https://www.chinasilkmuseum.com",ticketLink:""},
-      // 节日
-      {id:150,date:"2026-04-04",endDate:"2026-04-06",title:"清明节",type:"festival-china",category:"festival",locationScope:"national",location:"中国",description:"中华民族传统节日，祭祖踏青",venue:"全国各地",price:"免费",organizer:"",tags:"传统节日,放假,祭祀",link:"",ticketLink:""},
-      {id:151,date:"2026-05-01",title:"劳动节",type:"festival-china",category:"festival",locationScope:"national",location:"中国",description:"法定节假日",venue:"全国各地",price:"免费",organizer:"",tags:"法定节日,放假",link:"",ticketLink:""},
-      {id:152,date:"2026-06-12",title:"端午节",type:"festival-china",category:"festival",locationScope:"national",location:"中国",description:"传统节日，赛龙舟、吃粽子",venue:"全国各地",price:"免费",organizer:"",tags:"传统节日,放假,龙舟",link:"",ticketLink:""},
-      {id:153,date:"2026-09-10",title:"中秋节",type:"festival-china",category:"festival",locationScope:"national",location:"中国",description:"传统节日，赏月吃月饼",venue:"全国各地",price:"免费",organizer:"",tags:"传统节日,放假,团圆",link:"",ticketLink:""},
-      {id:154,date:"2026-10-01",endDate:"2026-10-07",title:"国庆节",type:"festival-china",category:"festival",locationScope:"national",location:"中国",description:"中华人民共和国成立纪念日",venue:"全国各地",price:"免费",organizer:"",tags:"法定节日,放假,国庆",link:"",ticketLink:""},
-      {id:155,date:"2026-10-31",title:"万圣节",type:"festival-west",category:"festival",locationScope:"global",location:"全球",description:"Halloween不给糖就捣蛋",venue:"全球",price:"免费",organizer:"",tags:"西方节日,派对",link:"",ticketLink:""},
-      {id:156,date:"2026-12-25",title:"圣诞节",type:"festival-west",category:"festival",locationScope:"global",location:"全球",description:"Christmas圣诞快乐",venue:"全球",price:"免费",organizer:"",tags:"西方节日,圣诞",link:"",ticketLink:""},
+      {id:1,date:"2026-03-28",title:"林俊杰演唱会",type:"concert",category:"entertainment",locationScope:"city",location:"杭州",description:"JJ林俊杰时线演唱会，带来经典金曲和惊喜曲目，与你共赴音乐之约",venue:"杭州奥体中心",price:"380-1280元",organizer:"大象音乐",tags:"演唱会,华语,流行",image:"https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600",link:"https://music.163.com",ticketLink:"https://www.damai.cn"},
+      {id:2,date:"2026-04-05",title:"周杰伦演唱会",type:"concert",category:"entertainment",locationScope:"national",location:"上海",description:"嘉年华世界巡回演唱会上海站，经典金曲大合唱之夜",venue:"梅赛德斯奔驰文化中心",price:"580-2000元",organizer:"杰威尔音乐",tags:"演唱会,华语,经典",image:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600",link:"https://www.jvrmusic.com",ticketLink:"https://www.damai.cn"},
+      {id:3,date:"2026-04-18",title:"五月天演唱会",type:"concert",category:"entertainment",locationScope:"national",location:"北京",description:"诺亚方舟十周年复刻版，万人合唱经典曲目",venue:"鸟巢国家体育场",price:"355-1855元",organizer:"相信音乐",tags:"演唱会,摇滚,经典",image:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600",link:"https://www.iamMayday.com",ticketLink:"https://www.228.com.cn"},
+      {id:4,date:"2026-05-10",title:"薛之谦演唱会",type:"concert",category:"entertainment",locationScope:"city",location:"杭州",description:"天外来物巡回演唱会，幽默与深情并存",venue:"黄龙体育中心",price:"317-1317元",organizer:"万代音乐",tags:"演唱会,华语,幽默",image:"https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600",link:"https://music.163.com",ticketLink:"https://www.damai.cn"},
+      {id:5,date:"2026-06-20",title:"Coldplay世界巡演",type:"concert",category:"entertainment",locationScope:"national",location:"北京",description:"Music of the Spheres Tour，环保主题演唱会，视觉盛宴",venue:"北京国家体育场(鸟巢)",price:"580-2280元",organizer:"Live Nation",tags:"演唱会,英文,摇滚",image:"https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600",link:"https://www.coldplay.com",ticketLink:"https://www.damai.cn"},
+      {id:10,date:"2026-04-25",endDate:"2026-04-27",title:"迷笛音乐节",type:"festival-music",category:"entertainment",locationScope:"province",location:"浙江",description:"国内顶级摇滚音乐节，崔健痛仰等重磅乐队参演",venue:"浙江某露营基地",price:"280-380元/天",organizer:"迷笛",tags:"音乐节,摇滚,live",image:"https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600",link:"http://www.midi.cn",ticketLink:"https://www.damai.cn"},
+      {id:11,date:"2026-05-15",endDate:"2026-05-17",title:"西湖音乐节",type:"festival-music",category:"entertainment",locationScope:"city",location:"杭州",description:"杭州本地大型音乐节，融合民谣、摇滚、电子",venue:"太子湾公园",price:"299-699元",organizer:"西湖音乐节组委会",tags:"音乐节,民谣,户外",image:"https://images.unsplash.com/photo-1429962714451-bb173ec1ef9a?w=600",link:"https://www.xihumusic.com",ticketLink:"https://www.damai.cn"},
+      {id:12,date:"2026-06-01",endDate:"2026-06-02",title:"草莓音乐节",type:"festival-music",category:"entertainment",locationScope:"national",location:"上海",description:"摩登天空旗舰音乐节，新裤子、重塑等参演",venue:"上海滩运动公园",price:"360-680元",organizer:"摩登天空",tags:"音乐节,摇滚,电子",image:"https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600",link:"https://www.modernskyclub.com",ticketLink:"https://www.damai.cn"},
+      {id:20,date:"2026-03-28",title:"痛仰乐队Livehouse",type:"livehouse",category:"entertainment",locationScope:"city",location:"杭州",description:"痛仰乐队专场演出，高虎带你躁起来",venue:"MAO Livehouse杭州",price:"198-298元",organizer:"MAO Livehouse",tags:"Livehouse,摇滚,现场",image:"https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600",link:"https://www.maolivehouse.com",ticketLink:"https://www.damai.cn"},
+      {id:21,date:"2026-04-05",title:"新裤子乐队演出",type:"livehouse",category:"entertainment",locationScope:"city",location:"杭州",description:"新裤子乐队巡演杭州站，disco与摇滚的完美融合",venue:"大麦66 Livehouse",price:"268-368元",organizer:"大麦66",tags:"Livehouse,摇滚,Disco",image:"https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600",link:"https://www.66livehouse.com",ticketLink:"https://www.damai.cn"},
+      {id:22,date:"2026-04-18",title:"告五人Livehouse巡演",type:"livehouse",category:"entertainment",locationScope:"national",location:"上海",description:"告五人第一次新世界巡回演唱会",venue:"ModernSky LAB",price:"288-388元",organizer:"MODERNSKY",tags:"Livehouse,台湾,独立",image:"https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=600",link:"https://www.accusefive.com",ticketLink:"https://www.228.com.cn"},
+      {id:50,date:"2026-06-07",endDate:"2026-06-09",title:"高考",type:"exam",category:"education",locationScope:"national",location:"全国",description:"普通高等学校招生全国统一考试，改变命运的时刻",venue:"各地中学考场",price:"免费",organizer:"教育部",tags:"考试,高考,命运",image:"https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600",link:"https://www.neea.edu.cn",ticketLink:""},
+      {id:51,date:"2026-04-11",title:"省公务员考试",type:"exam",category:"education",locationScope:"national",location:"全国",description:"公务员省考笔试日",venue:"各地考场",price:"免费",organizer:"国家公务员局",tags:"考试,公务员,编制",image:"https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600",link:"http://www.chinagwy.org",ticketLink:""},
+      {id:70,date:"2026-03-30",title:"苹果春季发布会",type:"tech-release",category:"tech",locationScope:"global",location:"线上",description:"Apple Event，预计发布新款iPad和Mac",venue:"Apple Park",price:"免费直播",organizer:"Apple",tags:"发布会,苹果,科技",image:"https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600",link:"https://www.apple.com",ticketLink:""},
+      {id:71,date:"2026-05-20",title:"Google I/O 2026",type:"tech-release",category:"tech",locationScope:"global",location:"美国",description:"Google开发者大会，AI新功能发布",venue:"M Shoreline Amphitheatre",price:"免费直播",organizer:"Google",tags:"发布会,Google,AI",image:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600",link:"https://io.google",ticketLink:""},
+      {id:72,date:"2026-06-08",title:"WWDC2026",type:"tech-release",category:"tech",locationScope:"global",location:"线上",description:"苹果全球开发者大会，iOS/macOS新版本发布",venue:"Apple Park",price:"免费直播",organizer:"Apple",tags:"发布会,苹果,开发者",image:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600",link:"https://developer.apple.com/wwdc",ticketLink:""},
+      {id:73,date:"2026-08-20",title:"华为开发者大会",type:"tech-release",category:"tech",locationScope:"national",location:"深圳",description:"HDC 2026，鸿蒙新版本发布",venue:"华为总部",price:"免费",organizer:"华为",tags:"发布会,华为,鸿蒙",image:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",link:"https://developer.huawei.com",ticketLink:""},
+      {id:80,date:"2026-04-10",title:"小米汽车发布会",type:"auto",category:"tech",locationScope:"national",location:"北京",description:"小米新车发布，年轻人的第一辆车",venue:"小米科技园",price:"待定",organizer:"小米",tags:"发布会,小米,汽车",image:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600",link:"https://www.xiaomi.com",ticketLink:""},
+      {id:81,date:"2026-09-10",title:"蔚来NIO Day",type:"auto",category:"tech",locationScope:"national",location:"合肥",description:"蔚来年度发布会，新车型发布",venue:"合肥国际会展中心",price:"免费",organizer:"蔚来",tags:"发布会,蔚来,新能源",image:"https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600",link:"https://www.nio.cn",ticketLink:""},
+      {id:85,date:"2026-04-24",title:"中国航天日",type:"space",category:"tech",locationScope:"national",location:"全国",description:"中国航天事业纪念日，航天科普活动",venue:"各地航天基地",price:"免费",organizer:"中国航天科工集团",tags:"航天,科普,纪念日",image:"https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=600",link:"http://www.spacechina.com",ticketLink:""},
+      {id:86,date:"2026-07-20",title:"嫦娥七号发射",type:"space",category:"tech",locationScope:"national",location:"文昌",description:"月球探测任务发射，见证中国航天新里程碑",venue:"文昌航天发射场",price:"免费观看",organizer:"国家航天局",tags:"航天,月球,发射",image:"https://images.unsplash.com/photo-1457364559154-aa2644600ebb?w=600",link:"http://www.cnsa.gov.cn",ticketLink:""},
+      {id:95,date:"2026-08-01",endDate:"2026-08-04",title:"ChinaJoy",type:"gaming",category:"tech",locationScope:"national",location:"上海",description:"中国国际数码互动娱乐展，游戏动漫狂欢盛宴",venue:"上海新国际博览中心",price:"100-300元",organizer:"ChinaJoy组委会",tags:"游戏展,动漫,电竞",image:"https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600",link:"https://www.chinajoy.net",ticketLink:"https://www.chinajoy.net"},
+      {id:97,date:"2026-06-20",title:"LOL全球总决赛",type:"esports",category:"sports",locationScope:"global",location:"上海",description:"英雄联盟S16全球总决赛，电竞巅峰对决",venue:"上海梅赛德斯奔驰文化中心",price:"待定",organizer:"Riot Games",tags:"电竞,LOL,全球总决赛",image:"https://images.unsplash.com/photo-1542751110-97427bbecf20?w=600",link:"https://lolesports.com",ticketLink:"https://www.damai.cn"},
+      {id:100,date:"2026-09-25",endDate:"2026-10-11",title:"亚运会",type:"olympics",category:"sports",locationScope:"global",location:"大阪",description:"亚洲最大综合性运动会，各国健儿竞技",venue:"大阪各场馆",price:"待定",organizer:"亚奥理事会",tags:"运动会,亚运,竞技",image:"https://images.unsplash.com/photo-1461896836934- voices",link:"https://www.olympic.org",ticketLink:""},
+      {id:102,date:"2026-04-05",title:"杭州马拉松",type:"marathon",category:"sports",locationScope:"city",location:"杭州",description:"国际马拉松赛事，穿过西湖景区",venue:"杭州黄龙体育中心",price:"120-150元",organizer:"杭州市体育局",tags:"马拉松,跑步,赛事",image:"https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?w=600",link:"https://www.hangzhou-marathon.com",ticketLink:"https://www.damai.cn"},
+      {id:103,date:"2026-11-01",title:"上海马拉松",type:"marathon",category:"sports",locationScope:"national",location:"上海",description:"上海国际马拉松，跑过城市地标",venue:"上海外滩",price:"100-150元",organizer:"上海市体育局",tags:"马拉松,跑步,赛事",image:"https://images.unsplash.com/photo-1502224562085-639556652f9d?w=600",link:"https://www.shang-ma.com",ticketLink:"https://www.damai.cn"},
+      {id:110,date:"2026-03-15",endDate:"2026-06-15",title:"故宫春季特展",type:"museum",category:"culture",locationScope:"national",location:"北京",description:"故宫博物院春季特别展览，感受中华文化魅力",venue:"故宫博物院",price:"60元(含门票)",organizer:"故宫博物院",tags:"博物馆,展览,历史",image:"https://images.unsplash.com/photo-1569969009352-4cc4d5d7f7e3?w=600",link:"https://www.dpm.org.cn",ticketLink:"https://www.dpm.org.cn"},
+      {id:111,date:"2026-05-18",title:"国际博物馆日",type:"museum",category:"culture",locationScope:"global",location:"全球",description:"博物馆主题活动，全国博物馆免费开放",venue:"各地博物馆",price:"免费",organizer:"国际博物馆协会",tags:"博物馆,免费,纪念日",image:"https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600",link:"https://icom.museum",ticketLink:""},
+      {id:112,date:"2026-06-01",endDate:"2026-08-31",title:"浙江省博物馆夏季展",type:"museum",category:"culture",locationScope:"province",location:"杭州",description:"浙江省博物馆夏季特展",venue:"浙江省博物馆",price:"免费",organizer:"浙江省博物馆",tags:"博物馆,展览,历史",image:"https://images.unsplash.com/photo-1564399580075-5dfe20c90f0f?w=600",link:"https://www.zjmuseum.com.cn",ticketLink:""},
+      {id:120,date:"2026-03-15",endDate:"2026-06-15",title:"上海当代艺术博览会",type:"art",category:"culture",locationScope:"national",location:"上海",description:"Art021上海当代艺术博览会，艺术与生活的碰撞",venue:"上海展览中心",price:"100-200元",organizer:"Art021",tags:"艺术展,当代艺术,博览会",image:"https://images.unsplash.com/photo-1531243269054-5ebf6f34081e?w=600",link:"https://www.art021.com",ticketLink:""},
+      {id:121,date:"2026-09-01",endDate:"2026-11-30",title:"中国丝绸博物馆特展",type:"museum",category:"culture",locationScope:"city",location:"杭州",description:"丝绸博物馆秋季特展，领略丝绸之路的魅力",venue:"中国丝绸博物馆",price:"免费",organizer:"中国丝绸博物馆",tags:"博物馆,丝绸,展览",image:"https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600",link:"https://www.chinasilkmuseum.com",ticketLink:""},
+      {id:150,date:"2026-04-04",endDate:"2026-04-06",title:"清明节",type:"festival-china",category:"festival",locationScope:"national",location:"中国",description:"中华民族传统节日，祭祖踏青",venue:"全国各地",price:"免费",organizer:"",tags:"传统节日,放假,祭祀",image:"https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?w=600",link:"",ticketLink:""},
+      {id:151,date:"2026-05-01",title:"劳动节",type:"festival-china",category:"festival",locationScope:"national",location:"中国",description:"法定节假日，劳动最光荣",venue:"全国各地",price:"免费",organizer:"",tags:"法定节日,放假",image:"https://images.unsplash.com/photo-1508341421810-36b8fc06075c?w=600",link:"",ticketLink:""},
+      {id:152,date:"2026-06-12",title:"端午节",type:"festival-china",category:"festival",locationScope:"national",location:"中国",description:"传统节日，赛龙舟、吃粽子",venue:"全国各地",price:"免费",organizer:"",tags:"传统节日,放假,龙舟",image:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600",link:"",ticketLink:""},
+      {id:153,date:"2026-09-10",title:"中秋节",type:"festival-china",category:"festival",locationScope:"national",location:"中国",description:"传统节日，赏月吃月饼",venue:"全国各地",price:"免费",organizer:"",tags:"传统节日,放假,团圆",image:"https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=600",link:"",ticketLink:""},
+      {id:154,date:"2026-10-01",endDate:"2026-10-07",title:"国庆节",type:"festival-china",category:"festival",locationScope:"national",location:"中国",description:"中华人民共和国成立纪念日",venue:"全国各地",price:"免费",organizer:"",tags:"法定节日,放假,国庆",image:"https://images.unsplash.com/photo-1533158326339-7f3cf2404354?w=600",link:"",ticketLink:""},
+      {id:155,date:"2026-10-31",title:"万圣节",type:"festival-west",category:"festival",locationScope:"global",location:"全球",description:"Halloween不给糖就捣蛋",venue:"全球",price:"免费",organizer:"",tags:"西方节日,派对",image:"https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=600",link:"",ticketLink:""},
+      {id:156,date:"2026-12-25",title:"圣诞节",type:"festival-west",category:"festival",locationScope:"global",location:"全球",description:"Christmas圣诞快乐",venue:"全球",price:"免费",organizer:"",tags:"西方节日,圣诞",image:"https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=600",link:"",ticketLink:""},
     ];
     // 状态
-    let currentCity = '杭州', currentProvince = '浙江';
+    let currentCity = '杭州', currentProvince = '浙江', currentCountry = '中国';
     let currentYear = 2026, currentMonth = 2, selectedDate = null;
     let currentCategory = 'all', currentType = 'all', currentScope = 'all';
     let currentView = 'month';
+    let citySelectMode = 'province';
     let favorites = JSON.parse(localStorage.getItem('calendarFavorites') || '[]');
+    let reminders = JSON.parse(localStorage.getItem('eventReminders') || '{}');
 
     const today = new Date();
     if (today.getFullYear() === 2026) {
@@ -475,14 +445,26 @@
     function toggleFavorite(id, e) {
       e.stopPropagation();
       const idx = favorites.indexOf(id);
-      if (idx > -1) favorites.splice(idx, 1); else favorites.push(id);
+      if (idx > -1) { favorites.splice(idx, 1); delete reminders[id]; }
+      else { favorites.push(id); showReminderOption(id); }
       saveFavorites();
+      localStorage.setItem('eventReminders', JSON.stringify(reminders));
       updateFavCount();
       renderEvents();
     }
     function isFavorite(id) { return favorites.indexOf(id) > -1; }
-    function updateFavCount() {
-      document.getElementById('favCount').textContent = favorites.length;
+    function updateFavCount() { document.getElementById('favCount').textContent = favorites.length; }
+
+    // 提醒
+    function showReminderOption(id) {
+      const options = ['提前1天','提前3天','提前1周','不提醒'];
+      const choice = prompt('是否设置提醒？\n1. 提前1天\n2. 提前3天\n3. 提前1周\n4. 不提醒\n\n请输入数字：');
+      if (choice >= 1 && choice <= 3) {
+        const days = choice === 1 ? 1 : choice === 2 ? 3 : 7;
+        reminders[id] = days;
+        localStorage.setItem('eventReminders', JSON.stringify(reminders));
+        alert('已设置提前' + days + '天提醒');
+      }
     }
 
     // 主题
@@ -493,10 +475,43 @@
       localStorage.setItem('calendarTheme', isLight ? 'light' : 'dark');
     }
 
+    // 省市选择
+    function showCitySelect(mode) {
+      citySelectMode = mode;
+      document.getElementById('citySelectTitle').textContent = mode === 'province' ? '选择省份' : '选择城市';
+      const grid = document.getElementById('cityGrid');
+      const items = mode === 'province' ? provinces : (cities[currentProvince] || allCities);
+      grid.innerHTML = items.map(c => `<div class="city-item" onclick="selectCity('${c}')">${c}</div>`).join('');
+      document.getElementById('mainPage').style.display = 'none';
+      document.getElementById('citySelectPage').classList.add('active');
+    }
+
+    function hideCitySelect() {
+      document.getElementById('citySelectPage').classList.remove('active');
+      document.getElementById('mainPage').style.display = '';
+    }
+
+    function selectCity(city) {
+      if (citySelectMode === 'province') {
+        currentProvince = city;
+        document.getElementById('cityText').textContent = city;
+        if (cities[city]) {
+          document.getElementById('cityText2').textContent = cities[city][0];
+          currentCity = cities[city][0];
+        }
+      } else {
+        currentCity = city;
+        document.getElementById('cityText2').textContent = city;
+      }
+      hideCitySelect();
+      renderCalendar();
+      renderEvents();
+    }
+
     // GPS定位
     function requestLocation() {
       if (!navigator.geolocation) { alert('您的浏览器不支持GPS定位'); return; }
-      document.getElementById('locName').textContent = '定位中...';
+      document.getElementById('cityText').textContent = '定位中...';
       navigator.geolocation.getCurrentPosition(
         async (pos) => {
           try {
@@ -504,18 +519,18 @@
             const data = await res.json();
             const addr = data.address || {};
             currentCity = (addr.city || addr.town || addr.county || '未知城市').replace('市','');
-            currentProvince = (addr.state || '').replace('省','').replace('市','');
-            document.getElementById('locName').textContent = currentCity;
+            currentProvince = (addr.state || '').replace(/省|市/g,'');
+            document.getElementById('cityText').textContent = currentProvince;
+            document.getElementById('cityText2').textContent = currentCity;
             renderCalendar();
             renderEvents();
-          } catch(e) { document.getElementById('locName').textContent = '定位失败'; }
+          } catch(e) { document.getElementById('cityText').textContent = '定位失败'; }
         },
-        () => { document.getElementById('locName').textContent = '定位失败'; },
+        () => { document.getElementById('cityText').textContent = '定位失败'; },
         { timeout: 10000 }
       );
     }
 
-    // 工具函数
     function formatDateKey(y, m, d) { return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`; }
     function getDaysUntil(dateStr) {
       const target = new Date(dateStr);
@@ -530,7 +545,6 @@
       return `${days}天后`;
     }
 
-    // 筛选
     function eventMatchesFilters(event) {
       if (currentCategory !== 'all' && event.category !== currentCategory) return false;
       if (currentType !== 'all' && event.type !== currentType) return false;
@@ -575,7 +589,6 @@
       else if (view === 'list') renderListView();
     }
 
-    // 周视图
     function renderWeekView() {
       const weekStart = new Date(today);
       weekStart.setDate(today.getDate() - today.getDay());
@@ -586,22 +599,11 @@
         const dateKey = formatDateKey(d.getFullYear(), d.getMonth(), d.getDate());
         const dayEvents = getEventsForDate(dateKey);
         const isToday = d.toDateString() === today.toDateString();
-        html += `
-          <div class="week-row">
-            <div class="week-date">
-              <div class="week-day-num ${isToday ? 'today' : ''}">${d.getDate()}</div>
-              <div class="week-day-name">${dayNames[i]}</div>
-            </div>
-            <div class="week-events">
-              ${dayEvents.slice(0,3).map(e => `<div class="week-event" onclick="openModal(${e.id})">${e.title}</div>`).join('')}
-              ${dayEvents.length > 3 ? `<div class="week-event">+${dayEvents.length-3}更多</div>` : ''}
-            </div>
-          </div>`;
+        html += `<div class="week-row"><div class="week-date"><div class="week-day-num ${isToday ? 'today' : ''}">${d.getDate()}</div><div class="week-day-name">${dayNames[i]}</div></div><div class="week-events">${dayEvents.slice(0,3).map(e => `<div class="week-event" onclick="openModal(${e.id})">${e.title}</div>`).join('')}${dayEvents.length > 3 ? `<div class="week-event">+${dayEvents.length-3}更多</div>` : ''}</div></div>`;
       }
       document.getElementById('weekView').innerHTML = html;
     }
 
-    // 列表视图
     function renderListView() {
       const upcomingEvents = events.filter(e => e.date >= formatDateKey(today.getFullYear(), today.getMonth(), today.getDate()))
         .sort((a,b) => a.date.localeCompare(b.date)).slice(0,30);
@@ -609,54 +611,32 @@
       upcomingEvents.forEach(e => {
         const d = new Date(e.date);
         const color = typeColors[e.type] || '#888';
-        html += `
-          <div class="list-item" style="border-left-color:${color}" onclick="openModal(${e.id})">
-            <div class="list-date">
-              <div class="list-date-num">${d.getDate()}</div>
-              <div class="list-date-month">${monthNames[d.getMonth()]}</div>
-            </div>
-            <div class="list-content">
-              <div class="list-title">${e.title}</div>
-              <div class="list-info">${e.location} · ${formatCountdown(e.date)}</div>
-            </div>
-          </div>`;
+        html += `<div class="list-item" style="border-left-color:${color}" onclick="openModal(${e.id})"><div class="list-date"><div class="list-date-num">${d.getDate()}</div><div class="list-date-month">${monthNames[d.getMonth()]}</div></div><div class="list-content"><div class="list-title">${e.title}</div><div class="list-info">${e.location} · ${formatCountdown(e.date)}</div></div></div>`;
       });
       document.getElementById('listView').innerHTML = html;
     }
 
-    // AI推荐
     function renderAIRecommendations() {
-      const prefs = JSON.parse(localStorage.getItem('eventPrefs') || '[]');
       const allTypes = Object.keys(typeLabels);
       const recs = allTypes.slice(0,6);
-      document.getElementById('aiRecommendations').innerHTML = recs.map(t => 
-        `<span class="ai-tag" onclick="filterByType('${t}')">${typeLabels[t]}</span>`
-      ).join('');
+      document.getElementById('aiRecommendations').innerHTML = recs.map(t => `<span class="ai-tag" onclick="filterByType('${t}')">${typeLabels[t]}</span>`).join('');
     }
 
     function filterByType(type) {
+      currentCategory = events.find(e => e.type === type)?.category || 'all';
+      currentType = type;
       document.querySelectorAll('[data-category]').forEach(t => t.classList.remove('active'));
-      const category = events.find(e => e.type === type)?.category;
-      if (category) {
-        currentCategory = category;
-        document.querySelector(`[data-category="${category}"]`)?.classList.add('active');
-      }
+      document.querySelector(`[data-category="${currentCategory}"]`)?.classList.add('active');
       updateSubFilters();
-      const tab = document.querySelector(`[data-type="${type}"]`);
-      if (tab) {
-        document.querySelectorAll('[data-type]').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentType = type;
-      }
+      document.querySelectorAll('[data-type]').forEach(t => t.classList.remove('active'));
+      document.querySelector(`[data-type="${type}"]`)?.classList.add('active');
       renderCalendar();
       renderEvents();
     }
 
-    // 快捷统计
     function updateQuickStats() {
       const todayKey = formatDateKey(today.getFullYear(), today.getMonth(), today.getDate());
       document.getElementById('todayCount').textContent = getEventsForDate(todayKey).length;
-      
       let weekCount = 0;
       for (let i = 0; i < 7; i++) {
         const d = new Date(today);
@@ -664,7 +644,6 @@
         weekCount += getEventsForDate(formatDateKey(d.getFullYear(), d.getMonth(), d.getDate())).length;
       }
       document.getElementById('weekCount').textContent = weekCount;
-      
       const upcoming = events.filter(e => e.date >= todayKey && getDaysUntil(e.date) <= 7).length;
       document.getElementById('upcomingCount').textContent = upcoming;
     }
@@ -680,94 +659,57 @@
       renderEvents();
     }
 
-    function showWeek() {
-      switchView('week');
-      document.querySelectorAll('.stat-card').forEach(c => c.classList.remove('active'));
-      document.getElementById('weekStat').classList.add('active');
-    }
+    function showWeek() { switchView('week'); document.querySelectorAll('.stat-card').forEach(c => c.classList.remove('active')); document.getElementById('weekStat').classList.add('active'); }
+    function showUpcoming() { showUpcomingPage(); }
 
-    function showUpcoming() {
-      showUpcomingPage();
-    }
     // 搜索
     function searchEvents() {
       const query = document.getElementById('searchInput').value.trim().toLowerCase();
       if (!query) { alert('请输入搜索关键词'); return; }
-      const results = events.filter(e => 
-        e.title.toLowerCase().includes(query) ||
-        e.description?.toLowerCase().includes(query) ||
-        e.location.toLowerCase().includes(query) ||
-        e.tags?.toLowerCase().includes(query) ||
-        typeLabels[e.type]?.toLowerCase().includes(query)
-      );
+      const results = events.filter(e => e.title.toLowerCase().includes(query) || e.description?.toLowerCase().includes(query) || e.location.toLowerCase().includes(query) || e.tags?.toLowerCase().includes(query) || typeLabels[e.type]?.toLowerCase().includes(query));
       document.getElementById('searchPageCount').textContent = results.length;
-      document.getElementById('searchResults').innerHTML = results.length ? 
-        results.map((e,i) => renderEventCard(e,i)).join('') :
-        '<div class="no-events"><div class="no-events-icon">🔍</div><p>没有找到相关事件</p></div>';
+      document.getElementById('searchResults').innerHTML = results.length ? results.map((e,i) => renderEventCard(e,i)).join('') : '<div class="no-events"><div class="no-events-icon">🔍</div><p>没有找到相关事件</p></div>';
       document.getElementById('mainPage').style.display = 'none';
       document.getElementById('searchPage').classList.add('active');
     }
 
-    function hideSearchPage() {
-      document.getElementById('searchPage').classList.remove('active');
-      document.getElementById('mainPage').style.display = '';
-    }
-
-    document.getElementById('searchInput').addEventListener('keypress', e => {
-      if (e.key === 'Enter') searchEvents();
-    });
+    function hideSearchPage() { document.getElementById('searchPage').classList.remove('active'); document.getElementById('mainPage').style.display = ''; }
+    document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') searchEvents(); });
 
     // 即将开始
     function showUpcomingPage() {
       const todayKey = formatDateKey(today.getFullYear(), today.getMonth(), today.getDate());
-      const upcoming = events.filter(e => e.date >= todayKey && getDaysUntil(e.date) <= 30)
-        .sort((a,b) => a.date.localeCompare(b.date));
+      const upcoming = events.filter(e => e.date >= todayKey && getDaysUntil(e.date) <= 30).sort((a,b) => a.date.localeCompare(b.date));
       document.getElementById('upcomingPageCount').textContent = upcoming.length;
-      document.getElementById('upcomingList').innerHTML = upcoming.length ?
-        upcoming.map((e,i) => renderEventCard(e,i)).join('') :
-        '<div class="no-events"><div class="no-events-icon">📅</div><p>近期没有活动</p></div>';
+      document.getElementById('upcomingList').innerHTML = upcoming.length ? upcoming.map((e,i) => renderEventCard(e,i)).join('') : '<div class="no-events"><div class="no-events-icon">📅</div><p>近期没有活动</p></div>';
       document.getElementById('mainPage').style.display = 'none';
       document.getElementById('upcomingPage').classList.add('active');
     }
-
-    function hideUpcomingPage() {
-      document.getElementById('upcomingPage').classList.remove('active');
-      document.getElementById('mainPage').style.display = '';
-    }
+    function hideUpcomingPage() { document.getElementById('upcomingPage').classList.remove('active'); document.getElementById('mainPage').style.display = ''; }
 
     // 收藏页
     function showFavoritesPage() {
       const favEvents = events.filter(e => isFavorite(e.id)).sort((a,b) => a.date.localeCompare(b.date));
       document.getElementById('favPageCount').textContent = favEvents.length;
-      document.getElementById('favoritesList').innerHTML = favEvents.length ?
-        favEvents.map((e,i) => renderEventCard(e,i)).join('') :
-        '<div class="no-events"><div class="no-events-icon">❤️</div><p>还没有收藏的事件</p></div>';
+      document.getElementById('favoritesList').innerHTML = favEvents.length ? favEvents.map((e,i) => renderEventCard(e,i)).join('') : '<div class="no-events"><div class="no-events-icon">❤️</div><p>还没有收藏的事件</p></div>';
       document.getElementById('mainPage').style.display = 'none';
       document.getElementById('favoritesPage').classList.add('active');
     }
-
-    function hideFavoritesPage() {
-      document.getElementById('favoritesPage').classList.remove('active');
-      document.getElementById('mainPage').style.display = '';
-    }
-
+    function hideFavoritesPage() { document.getElementById('favoritesPage').classList.remove('active'); document.getElementById('mainPage').style.display = ''; }
     // 渲染日历
     function renderCalendar() {
       const firstDay = new Date(currentYear, currentMonth, 1).getDay();
       const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
       const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
       document.getElementById('monthTitle').textContent = `${currentYear}年${monthNames[currentMonth]}`;
-
       const grid = document.getElementById('calendarGrid');
       grid.innerHTML = '';
-
       for (let i = firstDay - 1; i >= 0; i--) {
         const el = document.createElement('div');
         el.className = 'calendar-day other-month';
         el.innerHTML = `<span class="day-num">${daysInPrevMonth - i}</span>`;
         grid.appendChild(el);
       }
-
       for (let day = 1; day <= daysInMonth; day++) {
         const dateKey = formatDateKey(currentYear, currentMonth, day);
         const bars = getEventBarsForDate(dateKey);
@@ -775,7 +717,6 @@
         el.className = 'calendar-day';
         if (currentYear === today.getFullYear() && currentMonth === today.getMonth() && day === today.getDate()) el.classList.add('today');
         if (selectedDate === day) el.classList.add('selected');
-
         let barsHtml = '';
         const multiEvents = bars.filter(b => b.multi);
         const dotEvents = bars.filter(b => !b.multi);
@@ -783,15 +724,12 @@
           barsHtml += `<div class="event-bar ${multiEvents[0].pos}" style="background:${multiEvents[0].color}"></div>`;
         } else if (dotEvents.length > 0) {
           const offset = dotEvents.length === 1 ? 50 : dotEvents.length === 2 ? 40 : 30;
-          dotEvents.forEach((d, i) => {
-            barsHtml += `<div class="event-dot" style="background:${d.color};left:${offset + i*12}%"></div>`;
-          });
+          dotEvents.forEach((d, i) => { barsHtml += `<div class="event-dot" style="background:${d.color};left:${offset + i*12}%"></div>`; });
         }
         el.innerHTML = `<span class="day-num">${day}</span>${barsHtml}`;
         el.addEventListener('click', () => { selectedDate = day; renderCalendar(); renderEvents(); });
         grid.appendChild(el);
       }
-
       const totalCells = firstDay + daysInMonth;
       const remaining = totalCells > 35 ? 42 - totalCells : 35 - totalCells;
       for (let day = 1; day <= remaining; day++) {
@@ -811,20 +749,20 @@
       if (event.endDate && event.endDate !== event.date) dateDisplay = `${event.date} ~ ${event.endDate}`;
       const countdown = formatCountdown(event.date);
       const fav = isFavorite(event.id);
+      const img = event.image ? `<img class="event-image" src="${event.image}" alt="${event.title}" onerror="this.style.display='none'">` : '';
       return `
         <div class="event-card" style="animation-delay:${index*0.05}s;border-left-color:${color}" onclick="openModal(${event.id})">
+          ${img}
           <div class="event-tags">
             <div class="event-type" style="background:${color}22;color:${color}">${label}</div>
             <div class="location-scope">${scope}</div>
           </div>
-          <div class="event-title">
-            ${event.title}
-            <button class="favorite-btn" onclick="toggleFavorite(${event.id},event)">${fav ? '❤️' : '🤍'}</button>
-          </div>
+          <div class="event-title">${event.title}<button class="favorite-btn" onclick="toggleFavorite(${event.id},event)">${fav ? '❤️' : '🤍'}</button></div>
           <div class="event-date">📅 ${dateDisplay} · ⏰ ${countdown}</div>
           <div class="event-location">📍 ${event.location}</div>
         </div>`;
     }
+
     // 详情弹窗
     function openModal(id) {
       const event = events.find(e => e.id === id);
@@ -835,35 +773,51 @@
       let dateDisplay = event.date;
       if (event.endDate && event.endDate !== event.date) dateDisplay = `${event.date} ~ ${event.endDate}`;
       
+      const img = event.image ? `<img class="modal-media" src="${event.image}" alt="${event.title}" onerror="this.style.display='none'">` : '';
+      document.getElementById('modalMedia').outerHTML = img || '';
+      document.getElementById('modalTitle').textContent = event.title;
+      
       let bodyHtml = `
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
           <span style="background:${color}22;color:${color};padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600">${label}</span>
           <span style="background:rgba(136,136,170,0.15);color:#8888aa;padding:4px 8px;border-radius:8px;font-size:11px">${scope}</span>
         </div>
-        <p>📅 <strong>时间：</strong>${dateDisplay} · ${formatCountdown(event.date)}</p>
-        <p>📍 <strong>地点：</strong>${event.location}${event.venue ? ` · ${event.venue}` : ''}</p>`;
-      
-      if (event.price) bodyHtml += `<p>💰 <strong>票价：</strong>${event.price}</p>`;
+        <div class="modal-meta">
+          <div class="meta-item"><div class="meta-label">📅 时间</div><div class="meta-value">${dateDisplay}</div></div>
+          <div class="meta-item"><div class="meta-label">⏰ 倒计时</div><div class="meta-value" style="color:var(--accent)">${formatCountdown(event.date)}</div></div>
+          <div class="meta-item"><div class="meta-label">📍 地点</div><div class="meta-value">${event.location}</div></div>
+          <div class="meta-item"><div class="meta-label">💰 票价</div><div class="meta-value">${event.price || '待定'}</div></div>
+        </div>`;
+      if (event.venue) bodyHtml += `<p>🏟️ <strong>场馆：</strong>${event.venue}</p>`;
       if (event.description) bodyHtml += `<p>📝 <strong>简介：</strong>${event.description}</p>`;
       if (event.organizer) bodyHtml += `<p>🏢 <strong>主办：</strong>${event.organizer}</p>`;
-      if (event.tags) bodyHtml += `<p>🏷️ <strong>标签：</strong>${event.tags}</p>`;
-      
-      document.getElementById('modalTitle').textContent = event.title;
+      if (event.tags) bodyHtml += `<div class="modal-tags">${event.tags.split(',').map(t => `<span class="modal-tag">#${t.trim()}</span>`).join('')}</div>`;
+      bodyHtml += `<div class="reminder-section"><div class="reminder-title">🔔 提醒设置</div><div class="reminder-options"><span class="reminder-option ${reminders[id]==1?'selected':''}" onclick="setReminder(${id},1)">提前1天</span><span class="reminder-option ${reminders[id]==3?'selected':''}" onclick="setReminder(${id},3)">提前3天</span><span class="reminder-option ${reminders[id]==7?'selected':''}" onclick="setReminder(${id},7)">提前1周</span><span class="reminder-option ${!reminders[id]?'selected':''}" onclick="setReminder(${id},0)">不提醒</span></div></div>`;
       document.getElementById('modalBody').innerHTML = bodyHtml;
       
       let actionsHtml = '';
       if (event.ticketLink) actionsHtml += `<a href="${event.ticketLink}" target="_blank" class="modal-link primary">🎫 立即购票 →</a>`;
       if (event.link) actionsHtml += `<a href="${event.link}" target="_blank" class="modal-link secondary">🔗 官方网站 →</a>`;
-      actionsHtml += `<button class="modal-link secondary" onclick="toggleFavorite(${event.id},event);closeModal();">${isFavorite(id) ? '💔 取消收藏' : '❤️ 收藏活动'}</button>`;
+      actionsHtml += `<button class="modal-link secondary" onclick="downloadEventICS(${id})">📅 添加到日历</button>`;
+      actionsHtml += `<button class="modal-link secondary" onclick="toggleFavorite(${id},event);closeModal();">${isFavorite(id) ? '💔 取消收藏' : '❤️ 收藏活动'}</button>`;
       document.getElementById('modalActions').innerHTML = actionsHtml;
       
       document.getElementById('eventModal').classList.add('active');
     }
 
+    function setReminder(id, days) {
+      if (days === 0) delete reminders[id];
+      else reminders[id] = days;
+      localStorage.setItem('eventReminders', JSON.stringify(reminders));
+      document.querySelectorAll('.reminder-option').forEach((el, i) => {
+        const dayMap = [1, 3, 7, 0];
+        el.classList.toggle('selected', dayMap[i] === days);
+      });
+    }
+
     function closeModal() { document.getElementById('eventModal').classList.remove('active'); }
     document.getElementById('eventModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
-    // 渲染事件列表
     function renderEvents() {
       updateFavCount();
       if (!selectedDate) {
@@ -874,21 +828,20 @@
       const dateKey = formatDateKey(currentYear, currentMonth, selectedDate);
       const eventsForDay = getEventsForDate(dateKey);
       document.getElementById('eventSectionTitle').textContent = `${currentYear}年${monthNames[currentMonth]}${selectedDate}日`;
-      document.getElementById('eventList').innerHTML = eventsForDay.length ?
-        eventsForDay.map((e, i) => renderEventCard(e, i)).join('') :
-        '<div class="no-events"><div class="no-events-icon">🎉</div><p>这一天没有重大事件</p></div>';
+      document.getElementById('eventList').innerHTML = eventsForDay.length ? eventsForDay.map((e, i) => renderEventCard(e, i)).join('') : '<div class="no-events"><div class="no-events-icon">🎉</div><p>这一天没有重大事件</p></div>';
     }
 
-    // 订阅功能
+    // 订阅
     function showSubscribeModal() { document.getElementById('subscribeModal').classList.add('active'); }
     function closeSubscribeModal() { document.getElementById('subscribeModal').classList.remove('active'); }
     document.getElementById('subscribeModal').addEventListener('click', function(e) { if (e.target === this) closeSubscribeModal(); });
 
     function downloadICS() {
-      const cal = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//全球大事件日历//CN', 'CALSCALE:GREGORIAN'];
+      const cal = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//全球大事件日历//CN'];
       events.filter(e => eventMatchesFilters(e)).forEach(e => {
         const start = e.date.replace(/-/g,'');
         const end = (e.endDate || e.date).replace(/-/g,'');
+        const reminder = reminders[e.id];
         cal.push('BEGIN:VEVENT');
         cal.push(`DTSTART:${start}`);
         cal.push(`DTEND:${end}`);
@@ -896,6 +849,13 @@
         cal.push(`LOCATION:${e.location}${e.venue ? ' - ' + e.venue : ''}`);
         cal.push(`DESCRIPTION:${e.description || ''}`);
         if (e.link) cal.push(`URL:${e.link}`);
+        if (reminder) {
+          cal.push(`BEGIN:VALARM`);
+          cal.push(`TRIGGER:-P${reminder}D`);
+          cal.push(`ACTION:DISPLAY`);
+          cal.push(`DESCRIPTION:${e.title}提醒`);
+          cal.push(`END:VALARM`);
+        }
         cal.push('END:VEVENT');
       });
       cal.push('END:VCALENDAR');
@@ -907,22 +867,38 @@
       alert('已下载 events.ics 文件，可以导入到日历应用了！');
     }
 
-    function copyCalendarUrl() {
-      const url = window.location.href;
-      navigator.clipboard?.writeText(url);
-      alert('链接已复制，可以粘贴到日历应用订阅！');
+    function downloadEventICS(id) {
+      const e = events.find(ev => ev.id === id);
+      if (!e) return;
+      const cal = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//全球大事件日历//CN'];
+      const start = e.date.replace(/-/g,'');
+      const end = (e.endDate || e.date).replace(/-/g,'');
+      const reminder = reminders[e.id];
+      cal.push('BEGIN:VEVENT');
+      cal.push(`DTSTART:${start}`);
+      cal.push(`DTEND:${end}`);
+      cal.push(`SUMMARY:${e.title}`);
+      cal.push(`LOCATION:${e.location}${e.venue ? ' - ' + e.venue : ''}`);
+      cal.push(`DESCRIPTION:${e.description || ''}`);
+      if (e.link) cal.push(`URL:${e.link}`);
+      if (reminder) {
+        cal.push(`BEGIN:VALARM`);
+        cal.push(`TRIGGER:-P${reminder}D`);
+        cal.push(`ACTION:DISPLAY`);
+        cal.push(`DESCRIPTION:${e.title}提醒`);
+        cal.push(`END:VALARM`);
+      }
+      cal.push('END:VEVENT');
+      cal.push('END:VCALENDAR');
+      const blob = new Blob([cal.join('\r\n')], {type: 'text/calendar'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${e.title}.ics`;
+      a.click();
     }
 
-    // 分享功能
-    function showShareModal() { document.getElementById('shareModal').classList.add('active'); }
-    function closeShareModal() { document.getElementById('shareModal').classList.remove('active'); }
-    document.getElementById('shareModal').addEventListener('click', function(e) { if (e.target === this) closeShareModal(); });
+    function copyCalendarUrl() { navigator.clipboard?.writeText(window.location.href); alert('链接已复制！'); }
 
-    function copyShareUrl() {
-      const url = 'https://boyzhoulei-del.github.io/weather-app/calendar.html';
-      navigator.clipboard?.writeText(url);
-      alert('分享链接已复制！');
-    }
     // 分类筛选
     document.querySelectorAll('[data-category]').forEach(tab => {
       tab.addEventListener('click', () => {
@@ -954,7 +930,6 @@
       });
     }
 
-    // 地理范围
     document.querySelectorAll('[data-scope]').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('[data-scope]').forEach(t => t.classList.remove('active'));
@@ -966,28 +941,12 @@
       });
     });
 
-    // 月份导航
-    document.getElementById('prevMonth').addEventListener('click', () => {
-      currentMonth--;
-      if (currentMonth < 0) { currentMonth = 11; currentYear--; }
-      renderCalendar();
-      renderEvents();
-    });
-    document.getElementById('nextMonth').addEventListener('click', () => {
-      currentMonth++;
-      if (currentMonth > 11) { currentMonth = 0; currentYear++; }
-      renderCalendar();
-      renderEvents();
-    });
+    document.getElementById('prevMonth').addEventListener('click', () => { currentMonth--; if (currentMonth < 0) { currentMonth = 11; currentYear--; } renderCalendar(); renderEvents(); });
+    document.getElementById('nextMonth').addEventListener('click', () => { currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; } renderCalendar(); renderEvents(); });
 
-    // 主题初始化
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-    if (localStorage.getItem('calendarTheme') === 'light') {
-      document.body.classList.add('light');
-      document.getElementById('themeToggle').textContent = '☀️';
-    }
+    if (localStorage.getItem('calendarTheme') === 'light') { document.body.classList.add('light'); document.getElementById('themeToggle').textContent = '☀️'; }
 
-    // 初始化
     updateSubFilters();
     renderCalendar();
     renderEvents();
