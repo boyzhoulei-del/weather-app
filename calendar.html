@@ -673,8 +673,7 @@
     {id:394,date:"2026-05-21",endDate:"2026-05-25",title:"2026中国国际服务贸易交易会",type:"trade",category:"business",locationScope:"national",location:"北京",description:"服贸会（CIFTIS），全球服务贸易领域规模最大的综合性展会，数字贸易新机遇",venue:"国家会议中心/首钢园",price:"免费注册",organizer:"商务部",tags:"服贸会,贸易,北京,数字经济",image:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600",link:"https://www.ciftis.org",ticketLink:""},
     {id:395,date:"2026-05-23",endDate:"2026-05-25",title:"杭州文创博览会",type:"trade",category:"business",locationScope:"city",location:"杭州",description:"杭州文化创意产业博览会，展示文创产业发展成果，创意生活新体验",venue:"杭州白马湖国际会展中心",price:"免费",organizer:"杭州市政府",tags:"文创,博览会,杭州,创意",image:"https://images.unsplash.com/photo-1531243269054-5ebf6f34081e?w=600",link:"",ticketLink:""},
     {id:396,date:"2026-05-23",endDate:"2026-05-25",title:"MSI季中冠军赛决赛(补赛)",type:"esports",category:"sports",locationScope:"global",location:"成都",description:"英雄联盟MSI季中冠军赛决赛（若延期），成都巅峰对决",venue:"成都金融城演艺中心",price:"280-1280元",organizer:"Riot Games",tags:"电竞,LOL,MSI,成都",image:"https://images.unsplash.com/photo-1542751110-97427bbecf20?w=600",link:"https://lolesports.com",ticketLink:"https://www.damai.cn"},
-    {id:397,date:"2026-05-27",title:"上海解放纪念日",type:"festival-china",category:"festival",locationScope:"city",location:"上海",description:"纪念1949年5月27日上海解放，历史铭记日",venue:"上海",price:"免费",organizer:"",tags:"纪念日,上海,历史",image:"https://images.unsplash.com/photo-1537531383496-f4749b03e1d5?w=600",link:"",ticketLink:""},
-
+    {id:397,date:"2026-05-27",title:"上海解放纪念日",type:"festival-china",category:"festival",locationScope:"city",location:"上海",description:"纪念1949年5月27日上海解放，历史铭记日",venue:"上海",price:"免费",organizer:"",tags:"纪念日,上海,历史",image:"https://images.unsplash.com/photo-1537531383496-f4749b03e1d5?w=600",link:""
     // 状态
     let currentCity = '杭州', currentProvince = '浙江', currentCountry = '中国';
     let currentYear = 2026, currentMonth = 2, selectedDate = null;
@@ -776,8 +775,15 @@
             renderCalendar();
             renderEvents();
           } catch(e) { document.getElementById('cityText').textContent = '定位失败'; }
-        },
-        () => { document.getElementById('cityText').textContent = '定位失败'; },
+        },,
+      {id:398,date:"2026-05-24",title:"2026全球无障碍宣传日",type:"festival",category:"festival",locationScope:"international",location:"全球",description:"全球无障碍意识日，倡导科技产品无障碍设计",venue:"全球各地",price:"免费",organizer:"联合国教科文组织",tags:"无障碍,公益,科技",image:"https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=600",link:"https://www.un.org",ticketLink:""},
+      {id:399,date:"2026-05-26",title:"华为开发者大会2026",type:"tech",category:"technology",locationScope:"national",location:"深圳",description:"华为年度开发者盛会，发布鸿蒙NEXT新版本与盘古大模型5.0",venue:"深圳国际会展中心",price:"免费",organizer:"华为技术有限公司",tags:"开发者,鸿蒙,AI",image:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600",link:"https://developer.huawei.com",ticketLink:""},
+      {id:400,date:"2026-05-29",title:"世界消化健康日",type:"festival",category:"festival",locationScope:"international",location:"全球",description:"倡导健康饮食与肠胃保健，提高消化系统健康意识",venue:"全球医疗机构",price:"免费",organizer:"世界胃肠病学组织",tags:"健康,医疗,公益",image:"https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=600",link:"https://www.worldgastroenterology.org",ticketLink:""},
+      {id:401,date:"2026-05-28",title:"2026抖音创作者大会",type:"tech",category:"technology",locationScope:"national",location:"北京",description:"字节跳动年度创作者盛会，发布抖音新功能与流量政策",venue:"北京751D·Park",price:"免费",organizer:"字节跳动",tags:"抖音,创作者,流量",image:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",link:"https://www.douyin.com",ticketLink:""},
+      {id:402,date:"2026-05-30",title:"全国科技工作者日",type:"festival-china",category:"festival",locationScope:"national",location:"全国",description:"向全国科技工作者致敬，弘扬科学家精神",venue:"全国科技场馆",price:"免费",organizer:"中国科学技术协会",tags:"科技工作者,科学家,致敬",image:"https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600",link:"https://www.cast.org.cn",ticketLink:""},
+      {id:403,date:"2026-05-31",title:"世界无烟日",type:"festival",category:"festival",locationScope:"international",location:"全球",description:"倡导戒烟行动，保护青少年免受烟草危害",venue:"全球",price:"免费",organizer:"世界卫生组织",tags:"控烟,健康,公益",image:"https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600",link:"https://www.who.int",ticketLink:""},
+      {id:404,date:"2026-05-22",title:"生物多样性国际日",type:"festival",category:"festival",locationScope:"international",location:"全球",description:"关注生态保护，推动人与自然和谐共生",venue:"全球自然保护地",price:"免费",organizer:"联合国环境规划署",tags:"生物多样性,环保,生态",image:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600",link:"https://www.unep.org",ticketLink:""},
+      {id:405,date:"2026-04-17",title:"周杰伦地表最强2026巡回演唱会-广州站",type:"concert",category:"entertainment",locationScope:"national",location:"广州",description:"周杰伦2026嘉年华世界巡回演唱会广州站，经典金曲与惊喜曲目共度难忘之夜",venue:"广州天河体育中心体育场",price:"580-2000元",organizer:"杰威尔音乐",tags:"演唱会,华语,经典",image:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600",link:"https://www.jvrmusic.com",ticketLink:"https://www.damai.cn"},        () => { document.getElementById('cityText').textContent = '定位失败'; },
         { timeout: 10000 }
       );
     }
